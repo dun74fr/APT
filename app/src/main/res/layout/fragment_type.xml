@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
+    android:layout_marginTop="3dp"
+    android:padding="10dp"
+    android:orientation="horizontal"
+    android:background="@color/colorGray">
+
+
+    <TextView
+        android:ellipsize="middle"
+        android:id="@+id/list_item_map_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        tools:text="CBBA-4219-15C"
+        android:layout_marginStart="20dp"
+        android:layout_weight="1"
+        android:singleLine="true" />
+
+    <ImageView
+        android:id="@+id/list_item_genre_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        app:srcCompat="@drawable/ic_arrow_down" />
+
+</LinearLayout>

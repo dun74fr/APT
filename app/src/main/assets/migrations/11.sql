@@ -1,0 +1,1 @@
+ALTER TABLE Address ADD COLUMN blind INTEGER;

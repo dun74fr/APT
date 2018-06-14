@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="fr.areastudio.jwterritorio.activities.NewVisitActivity"
+    tools:showIn="@layout/activity_new_visit">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/AppTheme.TextSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/visit_information" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/date_hour" />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/black"
+                tools:text="23 avril 2018" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/black"
+                tools:text="10:12" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/result" />
+
+        <Spinner
+            android:id="@+id/result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/visits_results" />
+
+        <TextView
+            style="@style/AppTheme.TextSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/notes_title" />
+
+        <EditText
+            android:id="@+id/notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="4" />
+
+        <!--<TextView-->
+            <!--style="@style/AppTheme.TextSection"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/verse_title" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/verses"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="@string/verses" />-->
+
+        <TextView
+            style="@style/AppTheme.TextSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/publicacion_title" />
+
+        <EditText
+            android:id="@+id/publication"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/publicacions" />
+
+        <TextView
+            style="@style/AppTheme.TextSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/video_title" />
+
+        <EditText
+            android:id="@+id/video"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/video" />
+
+        <TextView
+            style="@style/AppTheme.TextSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/next_theme_title" />
+
+        <EditText
+            android:id="@+id/nextTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/next_theme" />
+
+        <TextView
+            style="@style/AppTheme.TextSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/next_visit_date_title" />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/nextdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/black"
+                tools:text="23 avril 2018" />
+
+            <TextView
+                android:id="@+id/nexttime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/black"
+                tools:text="10:12" />
+        </LinearLayout>
+
+        <!--<TextView-->
+            <!--style="@style/AppTheme.TextSection"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/bible_study_title" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/coursePublication"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="@string/study_pub" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/courseBookmark"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="@string/bookmark" />-->
+    </LinearLayout>
+
+</ScrollView>

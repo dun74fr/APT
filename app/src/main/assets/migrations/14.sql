@@ -1,0 +1,1 @@
+ALTER TABLE Congregation ADD COLUMN city TEXT;

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="navigation_drawer_open">"Iniciar a Navegação"</string>
+    <string name="navigation_drawer_close">"Fechar a Navegação"</string>
+
+    <string name="action_settings">"Ajustes"</string>
+    <string name="action_search">"Procurar"</string>
+    <string name="action_map">"Mapa"</string>
+    <string name="action_ok">"Ok"</string>
+    <string name="action_edit">"Editar"</string>
+    <string name="action_navigate">"Navegar"</string>
+    <string name="action_add_address">"Adicionar"</string>
+    <string name="title_activity_login">"Identificação"</string>
+    <string name="title_activity_assign">"Designação"</string>
+    <string name="title_activity_my_addresses">"Meus endereços"</string>
+
+
+    <string name="prompt_email">"E-mail"</string>
+    <string name="prompt_password">"Senha"</string>
+    <string name="action_sign_in">"Login"</string>
+    <string name="action_sign_in_short">"Entrar"</string>
+    <string name="error_invalid_email">"Este e-mail não está correto"</string>
+    <string name="error_invalid_password">"A senha é muito curta"</string>
+    <string name="error_incorrect_password">"A senha está incorreta"</string>
+    <string name="error_field_required">"Este campo é obrigatório"</string>
+    <string name="selected_to_assign">"%1$d território(s) para designar"</string>
+    <string name="title_home">"Início"</string>
+    <string name="title_activity_maps">"Mapa"</string>
+    <string name="title_web">"Site web"</string>
+    <string name="title_activity_new_address">"Novo endereço"</string>
+    <string name="title_activity_view_address">"Pessoa"</string>
+    <string name="title_activity_new_visit">"Nova visita"</string>
+    <string name="title_activity_emergency">"Emergências"</string>
+
+    <string name="address_list">"Lista de endereços"</string>
+    <string name="web_site">"Site web"</string>
+    <string name="location_permission_denied">"Permissão de localização rejeitada"</string>
+    <string name="permission_required_toast">"O aplicativo requer acesso da sua posição"</string>
+    <string name="permission_rationale_location">"É necessário acesso a sua posição para visualizar no mapa"</string>
+    <string name="sign">"Sinais"</string>
+    <string name="assign_by_web">"Designar on-line"</string>
+    <string name="assign_territory"><u>Designar território</u></string>
+    <string name="private_data">"Dado privado"</string>
+
+    <string-array name="ages">
+        <item>"Crinça"</item>
+        <item>"Jovem"</item>
+        <item>"Adulto"</item>
+        <item>"Idoso"</item>
+    </string-array>
+
+    <string-array name="visits_results">
+        <item>"Pessoa encontrada"</item>
+        <item>"Pessoa não em casa"</item>
+        <item>"Pessoa não interessada"</item>
+        <item>"Pessoa ocupada"</item>
+        <item>"Contatada por carta, texto…"</item>
+        <item>"Contatada por telefone"</item>
+    </string-array>
+
+
+    <string-array name="languages">
+        <item>"Espanhol"</item>
+        <item>"Português"</item>
+        <item>"Quíchua"</item>
+        <item>"Aimará"</item>
+        <item>"Guarani"</item>
+    </string-array>
+
+    <string name="confirm_assign">"Confirmação de designação"</string>
+    <string name="filters">"Filtros"</string>
+    <string name="last_news">"Últimas notícias"</string>
+    <string name="personal_info">"INFORMAÇÃO PESSOAL"</string>
+    <string name="name">"Nome"</string>
+    <string name="gender">"Gênero"</string>
+    <string name="age">"Idade"</string>
+    <string name="language">"Idioma"</string>
+
+    <string name="handicap">"Limitações"</string>
+    <string name="deaf">"Surdo"</string>
+    <string name="mute">"Mudo"</string>
+    <string name="blind">"Cego"</string>
+    <string name="phone">"Telefone"</string>
+    <string name="phone_number">"Número de telefone"</string>
+    <string name="contact_type">"TIPO DE CONTATO"</string>
+    <string name="not_at_home">"Não encontrado"</string>
+    <string name="visit">"Revisita"</string>
+    <string name="bible_study">"Curso bíblico"</string>
+    <string name="address_title">"ENDEREÇO"</string>
+    <string name="address">"Endereço"</string>
+    <string name="home_description">"Descrição da casa"</string>
+    <string name="latitude">"Latitude"</string>
+    <string name="longitude">"Longitude"</string>
+    <string name="notes_title">"NOTAS"</string>
+    <string name="notes">"Anotações"</string>
+    <string name="territory">"Território"</string>
+    <string name="visit_information">"INFORMAÇÃO DE VISITA"</string>
+    <string name="date_hour">"DATA E HORA"</string>
+    <string name="result">"RESULTADO"</string>
+    <string name="verse_title">"Versículos"</string>
+    <string name="verses">"Versículos"</string>
+    <string name="publicacion_title">"PUBLICAÇÕES"</string>
+    <string name="publicacions">"Publicações"</string>
+    <string name="video_title">"VÍDEOS"</string>
+    <string name="video">"Vídeos"</string>
+    <string name="next_theme_title">"TEMA PARA A PRÓXIMA VISITA"</string>
+    <string name="next_theme">"Tema para a próxima visita "</string>
+    <string name="next_visit_date_title">"HORÁRIO PARA A PRÓXIMA VISITA"</string>
+    <string name="next_visit_date">"Horário para a próxima visita"</string>
+    <string name="bible_study_title">"CURSO BÍBLICO"</string>
+    <string name="study_pub">"Publicação"</string>
+    <string name="bookmark">"Marcador de página"</string>
+    <string name="visits_title">"VISITAS"</string>
+    <string name="need_google_maps">Você precisa do Google Maps para navegar</string>
+    <string name="help_webpage">help_es.html</string>
+    <string name="action_help">Ayuda</string>
+    <string name="indefinida">Indefinida</string>
+    <string name="logout">Logout</string>
+    <string name="volunteer_atention">Atenção para voluntários</string>
+    <string name="emergency">Emergência</string>
+    <string name="family_title">Descrição da família</string>
+    <string name="family_description">Descrição da família</string>
+    <string name="confirm_type_change">Tem certeza de que deseja alterar o tipo de contato ?</string>
+    <string name="cancel">Cancelar</string>
+    <string name="new_info">Novas informações disponíveis na página principal</string>
+    <string name="last_news_url">https://cep2018.ptbvl.org/last_news_pt.json</string>
+    <string name="read_button">ACEITAR</string>
+    <string name="update_error">Ocorreu um erro durante o upload das alterações</string>
+    <string name="send_error_log">Enviar log</string>
+    <string name="not_enough_info">Faltando alguns dados necessários para criar um contato</string>
+    <string name="loose_everything">Você perderá todos os seus dados não sincronizados</string>
+    <string name="version_obsolete">Sua versão do aplicativo não é a última. Atualize-o no Google Play</string>
+    <string name="confirm_unassign">Tem certeza de que deseja devolver o território à congregação ?</string>
+    <string name="fill_notes">Falta de uma nota</string>
+    <string name="title_webpoints">Pontos de interesse</string>
+    <string name="medical_atention">Atenção médica</string>
+    <string name="contacts">Contatos</string>
+    <string name="puntos_of_interest">Pontos de interesse</string>
+    <string name="action_add_to_my_dir">Adicionar à minha lista pessoal</string>
+    <string name="added_to_my_dir">Adicionado à minha lista pessoal</string>
+    <string name="removed_from_my_dir">Removido da minha lista pessoal</string>
+    <string name="new_visit">Nova visita</string>
+    <string name="remove_from_my_dir">Remover da minha lista pessoal</string>
+
+</resources>

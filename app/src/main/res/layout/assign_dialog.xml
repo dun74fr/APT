@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools"
+
+    android:orientation="vertical"
+    android:padding="10dp">
+    <TextView
+        android:id="@+id/title"
+        style="@style/AppTheme.TextSection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/assign_territory" />
+
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/qr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:visibility="gone"
+        android:id="@+id/assign_web_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tool:visibility="visible">
+        <Spinner
+            android:id="@+id/publishers"
+            android:minWidth="105dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/assignBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu_send"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/assign_web"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/assign_by_web"
+        android:textColor="@color/primaryColor"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

@@ -1,0 +1,1 @@
+ALTER TABLE Address ADD COLUMN my_local_dir integer;

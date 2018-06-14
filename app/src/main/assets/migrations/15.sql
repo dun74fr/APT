@@ -1,0 +1,1 @@
+ALTER TABLE Address ADD COLUMN family_description TEXT;

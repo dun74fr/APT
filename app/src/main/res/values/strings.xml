@@ -1,0 +1,151 @@
+<resources>
+    <string name="app_name" translatable="false">CEP2018</string>
+
+    <string name="navigation_drawer_open">Open nav</string>
+    <string name="navigation_drawer_close">Close nav</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="action_map">Map</string>
+    <string name="action_ok">Ok</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_navigate">Navigate</string>
+    <string name="action_add_address">Add</string>
+    <string name="title_activity_login">Identification</string>
+    <string name="title_activity_assign">Assignment</string>
+    <string name="title_activity_my_addresses">My addresses</string>
+
+
+    <string name="prompt_email">E-mail</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">Invalid e-mail</string>
+    <string name="error_invalid_password">The password is too short</string>
+    <string name="error_incorrect_password">Invalid password</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="selected_to_assign">%1$d territory(ies) to assign</string>
+    <string name="title_home">Home</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_web">Website</string>
+    <string name="title_activity_new_address">New address</string>
+    <string name="title_activity_view_address">Person</string>
+    <string name="title_activity_new_visit">New visit</string>
+    <string name="title_activity_emergency">Emergency</string>
+
+    <string name="address_list">Address list</string>
+    <string name="web_site">Website</string>
+    <string name="location_permission_denied">Localization permission denied</string>
+    <string name="permission_required_toast">The application need to access your location</string>
+    <string name="permission_rationale_location">Your location si required to show you on the map</string>
+    <string name="sign">Signs</string>
+    <string name="assign_by_web">Assign with internet</string>
+    <string name="assign_territory"><u>Assign territory</u></string>
+    <string name="private_data">Private data</string>
+
+    <string-array name="ages">
+        <item>Child</item>
+        <item>Young</item>
+        <item>Adult</item>
+        <item>Senior</item>
+    </string-array>
+
+    <string-array name="visits_results">
+        <item>Person found</item>
+        <item>Person not at home</item>
+        <item>Person not interested</item>
+        <item>Persona occupied</item>
+        <item>Contacted by letter, text…</item>
+        <item>Contacted by phone</item>
+    </string-array>
+
+
+    <string-array name="languages">
+        <item>Spanish</item>
+        <item>Portuguese</item>
+        <item>Quechua</item>
+        <item>Aymara</item>
+        <item>Guarani</item>
+    </string-array>
+
+    <string name="login_url" translatable="false">https://api.ptbvl.org/api/v1/user/{email}/{password}</string>
+    <string name="emergency_url" translatable="false">https://api.ptbvl.org/api/v1/emergency/all</string>
+    <string name="territory_url" translatable="false">https://api.ptbvl.org/api/v1/territory</string>
+    <string name="confirm_assign">Assignment confirmation</string>
+    <string name="filters">Filters</string>
+    <string name="last_news">Last news</string>
+    <string name="personal_info">PERSONAL INFORMATION</string>
+    <string name="name">Name</string>
+    <string name="gender">Gender</string>
+    <string name="age">Age</string>
+    <string name="language">Language</string>
+
+    <string name="handicap">Handicap</string>
+    <string name="deaf">Deaf</string>
+    <string name="mute">Mute</string>
+    <string name="blind">Blind</string>
+    <string name="phone">Phone</string>
+    <string name="phone_number">Phone number</string>
+    <string name="contact_type">CONTACT TYPE</string>
+    <string name="not_at_home">Not found</string>
+    <string name="visit">Visit</string>
+    <string name="bible_study">Bible study</string>
+    <string name="address_title">ADDRESS</string>
+    <string name="address">Address</string>
+    <string name="home_description">Home description</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="notes_title">NOTES</string>
+    <string name="notes">Notes</string>
+    <string name="territory">Territory</string>
+    <string name="visit_information">VISIT INFORMATION</string>
+    <string name="date_hour">DATE AND TIME</string>
+    <string name="result">RESULT</string>
+    <string name="verse_title">VERSES</string>
+    <string name="verses">Verses</string>
+    <string name="publicacion_title">PUBLICATIONS</string>
+    <string name="publicacions">Publications</string>
+    <string name="video_title">VIDEOS</string>
+    <string name="video">Videos</string>
+    <string name="next_theme_title">NEXT VISIT THEME</string>
+    <string name="next_theme">Next visit theme</string>
+    <string name="next_visit_date_title">NEXT VISIT DATE AND TIME</string>
+    <string name="next_visit_date">Next visit date and time</string>
+    <string name="bible_study_title">BIBLE STUDY</string>
+    <string name="study_pub">Publication</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="visits_title">VISITS</string>
+    <string name="need_google_maps">You need Google Maps for this option</string>
+    <string name="help_webpage">help_en.html</string>
+    <string name="action_help">Help</string>
+    <string name="indefinida">Undefined</string>
+    <string name="logout">Logout</string>
+    <string name="volunteer_atention">Volunteer atention</string>
+    <string name="emergency">Emergency</string>
+    <string name="family_title">Family description</string>
+    <string name="family_description">Family description</string>
+    <string name="confirm_type_change">Are you sure you want to change the contact type ?</string>
+    <string name="cancel">Cancel</string>
+    <string name="new_info">New information available on main screen</string>
+    <string name="last_news_url">https://cep2018.ptbvl.org/last_news_es.json</string>
+    <string name="read_button">ACCEPT</string>
+    <string name="update_error">An error occurred during update</string>
+    <string name="send_error_log">Send log</string>
+    <string name="not_enough_info">The minimum information is missing</string>
+    <string name="loose_everything">You will loose all unsynced data</string>
+    <string name="version_obsolete">Your version of the App is not the last one. Please update from Google Play</string>
+    <string name="confirm_unassign">Are you sure you want to return the territory to the congregation ?</string>
+    <string name="fill_notes">Please fill the note field</string>
+    <string name="title_webpoints">Points of interest</string>
+    <string name="medical_atention">Medical atention</string>
+    <string name="contacts">Contacts</string>
+    <string name="puntos_of_interest">Points of interest</string>
+    <string name="action_add_to_my_dir">Add to my personal list</string>
+    <string name="added_to_my_dir">Added to my personal list</string>
+    <string name="removed_from_my_dir">Removed from my personal list</string>
+    <string name="new_visit">New visit</string>
+    <string name="remove_from_my_dir">Remove from my personal list</string>
+    <!--<string name="territory_url">http://192.168.2.105:8080/api/v1/territory</string>-->
+
+
+</resources>

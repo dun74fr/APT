@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array translatable="false" name="visits_results_values">
+        <item>FOUND</item>
+        <item>NOT AT HOME</item>
+        <item>NOT INTERESTED</item>
+        <item>OCCUPIED</item>
+        <item>LETTER CONTACT</item>
+        <item>PHONE CONTACT</item>
+    </string-array>
+
+    <string-array translatable="false" name="ages_values">
+        <item>CHILD</item>
+        <item>YOUNG</item>
+        <item>ADULT</item>
+        <item>SENOR</item>
+    </string-array>
+
+
+    <string-array translatable="false" name="languages_values">
+        <item>SPANISH</item>
+        <item>PORTUGUESE</item>
+        <item>QUECHUA</item>
+        <item>AYMARA</item>
+        <item>GUARANI</item>
+    </string-array>
+
+</resources>
