@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,28 +19,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.activeandroid.query.Delete;
-import com.activeandroid.query.Select;
 
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
 import fr.areastudio.jwterritorio.MyApplication;
 import fr.areastudio.jwterritorio.R;
-import fr.areastudio.jwterritorio.common.UUIDGenerator;
 import fr.areastudio.jwterritorio.model.Address;
-import fr.areastudio.jwterritorio.model.AddressJsonParser;
-import fr.areastudio.jwterritorio.model.Assignment;
-import fr.areastudio.jwterritorio.model.Congregation;
+import fr.areastudio.jwterritorio.model.Assignments;
 import fr.areastudio.jwterritorio.model.Publisher;
 import fr.areastudio.jwterritorio.model.Territory;
 import fr.areastudio.jwterritorio.model.Visit;
@@ -60,9 +50,12 @@ public class LoginActivity extends AppCompatActivity {
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
+    private EditText mUrlView;
+    private TextView help;
     private View mProgressView;
     private View mLoginFormView;
     private SharedPreferences settings;
+    protected String serverUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +66,14 @@ public class LoginActivity extends AppCompatActivity {
 
         // Set up the login form.
         mEmailView = findViewById(R.id.email);
-
+        mUrlView = findViewById(R.id.url);
+        help = findViewById(R.id.help_btn);
+        help.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this,HelpActivity.class));
+            }
+        });
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -112,31 +112,39 @@ public class LoginActivity extends AppCompatActivity {
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
+        mUrlView.setError(null);
 
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        serverUrl = mUrlView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
+//        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+//            mPasswordView.setError(getString(R.string.error_invalid_password));
+//            focusView = mPasswordView;
+//            cancel = true;
+//        }
 
         // Check for a valid email addressText.
+        if (TextUtils.isEmpty(serverUrl)) {
+            mUrlView.setError(getString(R.string.error_field_required));
+            focusView = mUrlView;
+            cancel = true;
+       }
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
         }
+// else if (!isEmailValid(email)) {
+//            mEmailView.setError(getString(R.string.error_invalid_email));
+//            focusView = mEmailView;
+//            cancel = true;
+//        }
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -146,20 +154,20 @@ public class LoginActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(getString(R.string.login_url), email, password);
+            mAuthTask = new UserLoginTask(serverUrl + getString(R.string.login_url), email, password);
             mAuthTask.execute((Void) null);
         }
     }
 
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
+//    private boolean isEmailValid(String email) {
+//        //TODO: Replace this with your own logic
+//        return email.contains("@");
+//    }
+//
+//    private boolean isPasswordValid(String password) {
+//        //TODO: Replace this with your own logic
+//        return password.length() >=  4;
+//    }
 
     /**
      * Shows the progress UI and hides the login form.
@@ -212,6 +220,7 @@ public class LoginActivity extends AppCompatActivity {
             mUrl = url;
             mEmail = email;
             mPassword = password;
+            mUrl = mUrl.replace("\n","");
             mUrl = mUrl.replace("{email}", email);
             mUrl = mUrl.replace("{password}", password);
 
@@ -244,34 +253,34 @@ public class LoginActivity extends AppCompatActivity {
                 out.flush();
                 input.close();
                 JSONObject mainJson = new JSONObject(out.toString());
-                mainJson = mainJson.getJSONObject("data");
+//                mainJson = mainJson.getJSONObject("data");
 
                 new Delete().from(Visit.class).execute();
                 new Delete().from(Address.class).execute();
-                new Delete().from(Assignment.class).execute();
+                new Delete().from(Assignments.class).execute();
                 new Delete().from(Territory.class).execute();
                 new Delete().from(Publisher.class).execute();
-                new Delete().from(Congregation.class).execute();
-                Congregation congregation = new Congregation(mainJson.getJSONObject("congregation").getString("name")) ;
-                congregation.uuid = mainJson.getJSONObject("congregation").getString("uuid");
-                congregation.address = mainJson.getJSONObject("congregation").getString("address");
-                congregation.lat = mainJson.getJSONObject("congregation").getString("lat");
-                congregation.lng = mainJson.getJSONObject("congregation").getString("lng");
-                congregation.number = mainJson.getJSONObject("congregation").getString("number");
-                congregation.city = mainJson.getJSONObject("congregation").optString("city");
-                congregation.save();
-                settings.edit().putString("congregation_uuid",congregation.uuid).apply();
-                new Delete().from(Publisher.class).where("uuid = ?", mainJson.getString("uuid")).execute();
+//                new Delete().from(Congregation.class).execute();
+//                Congregation congregation = new Congregation(mainJson.getJSONObject("congregation").getString("name")) ;
+//                congregation.uuid = mainJson.getJSONObject("congregation").getString("uuid");
+//                congregation.address = mainJson.getJSONObject("congregation").getString("address");
+//                congregation.lat = mainJson.getJSONObject("congregation").getString("lat");
+//                congregation.lng = mainJson.getJSONObject("congregation").getString("lng");
+//                congregation.number = mainJson.getJSONObject("congregation").getString("number");
+//                congregation.city = mainJson.getJSONObject("congregation").optString("city");
+//                congregation.save();
+//                settings.edit().putString("congregation_uuid",congregation.uuid).apply();
+
+                new Delete().from(Publisher.class).where("uuid = ?", mainJson.getString("_id")).execute();
                 Publisher me = new Publisher(mainJson.getString("name"));
-                me.congregation = congregation;
                 me.email = mainJson.getString("email");
-                me.uuid = mainJson.getString("uuid");
+                me.uuid = mainJson.getString("_id");
                 me.type = mainJson.getString("type");
                 me.save();
                 ((MyApplication)getApplication()).setMe(me);
-                settings.edit().putString("user_id", mainJson.getString("uuid"))
+                settings.edit().putString("user_id", mainJson.getString("_id"))
                         .putString("user",mainJson.getString("email"))
-                        .putString("password",mPassword).putString("city",congregation.city).apply();
+                        .putString("password",mPassword).apply();
                 return true;
             }
             catch (Exception e){
@@ -288,6 +297,7 @@ public class LoginActivity extends AppCompatActivity {
             if (success) {
                 settings.edit().putString("user", mEmail).apply();
                 settings.edit().putString("password", mPassword).apply();
+                settings.edit().putString("serverUrl",serverUrl).apply();;
                 Intent main = new Intent(LoginActivity.this,MainActivity.class);
                 LoginActivity.this.startActivity(main);
                 finish();

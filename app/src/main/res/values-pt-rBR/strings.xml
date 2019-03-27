@@ -59,13 +59,33 @@
         <item>"Contatada por telefone"</item>
     </string-array>
 
+    <string-array name="contact_type">
+        <item></item>
+        <item>Nunca visto</item>
+        <item>Revisita</item>
+        <item>Estudio bíblico</item>
+        <item>Teléfono</item>
+        <item>Revisita por teléfono</item>
+        <item>Estudio por teléfono</item>
+    </string-array>
 
     <string-array name="languages">
-        <item>"Espanhol"</item>
-        <item>"Português"</item>
-        <item>"Quíchua"</item>
-        <item>"Aimará"</item>
-        <item>"Guarani"</item>
+        <item>Aymara</item>
+        <item>Chino</item>
+        <item>Chiquitano</item>
+        <item>Inglés</item>
+        <item>Francés</item>
+        <item>Guarani</item>
+        <item>Guarayu</item>
+        <item>Ignaciano</item>
+        <item>Japonés</item>
+        <item>Koreano</item>
+        <item>Alemán bajo</item>
+        <item>Portugues</item>
+        <item>Quechua</item>
+        <item>Ruso</item>
+        <item>Español</item>
+        <item>Tsimané</item>
     </string-array>
 
     <string name="confirm_assign">"Confirmação de designação"</string>
@@ -113,8 +133,8 @@
     <string name="bookmark">"Marcador de página"</string>
     <string name="visits_title">"VISITAS"</string>
     <string name="need_google_maps">Você precisa do Google Maps para navegar</string>
-    <string name="help_webpage">help_es.html</string>
-    <string name="action_help">Ayuda</string>
+    <string name="help_webpage">help_pt.html</string>
+    <string name="action_help">Ajuda</string>
     <string name="indefinida">Indefinida</string>
     <string name="logout">Logout</string>
     <string name="volunteer_atention">Atenção para voluntários</string>
@@ -124,7 +144,6 @@
     <string name="confirm_type_change">Tem certeza de que deseja alterar o tipo de contato ?</string>
     <string name="cancel">Cancelar</string>
     <string name="new_info">Novas informações disponíveis na página principal</string>
-    <string name="last_news_url">https://cep2018.ptbvl.org/last_news_pt.json</string>
     <string name="read_button">ACEITAR</string>
     <string name="update_error">Ocorreu um erro durante o upload das alterações</string>
     <string name="send_error_log">Enviar log</string>
@@ -142,5 +161,12 @@
     <string name="removed_from_my_dir">Removido da minha lista pessoal</string>
     <string name="new_visit">Nova visita</string>
     <string name="remove_from_my_dir">Remover da minha lista pessoal</string>
+    <string name="prompt_url">URL do servidor</string>
+    <string name="backup">Backup</string>
+    <string name="clear_sync">Limpar dados de sincronização</string>
+    <string name="loose_unsync">Dados não sincronizados podem ser perdidos</string>
+    <string name="help_btn"><u>Ajuda</u></string>
+    <string name="version_mismatch">Versão do servidor diferente do aplicativo</string>
+    <string name="generate_s13">Gerar s13</string>
 
 </resources>

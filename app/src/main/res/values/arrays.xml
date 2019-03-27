@@ -10,20 +10,41 @@
         <item>PHONE CONTACT</item>
     </string-array>
 
+    <string-array translatable="false" name="contact_type_values">
+        <item></item>
+        <item>NEVER_SEEN</item>
+        <item>VISIT</item>
+        <item>BIBLE_COURSE</item>
+        <item>PHONE</item>
+        <item>PHONE_VISIT</item>
+        <item>PHONE_COURSE</item>
+    </string-array>
+
     <string-array translatable="false" name="ages_values">
         <item>CHILD</item>
         <item>YOUNG</item>
         <item>ADULT</item>
-        <item>SENOR</item>
+        <item>SENIOR</item>
     </string-array>
 
 
     <string-array translatable="false" name="languages_values">
-        <item>SPANISH</item>
+        <item>AYMARA</item>
+        <item>CHINESE</item>
+        <item>CHIQUITANO</item>
+        <item>ENGLISH</item>
+        <item>FRENCH</item>
+        <item>GUARANI</item>
+        <item>GUARAYU</item>
+        <item>IGNACIANO</item>
+        <item>JAPANESE</item>
+        <item>KOREAN</item>
+        <item>LOW GERMAN</item>
         <item>PORTUGUESE</item>
         <item>QUECHUA</item>
-        <item>AYMARA</item>
-        <item>GUARANI</item>
+        <item>RUSSIAN</item>
+        <item>SPANISH</item>
+        <item>TSIMANE</item>
     </string-array>
 
 </resources>

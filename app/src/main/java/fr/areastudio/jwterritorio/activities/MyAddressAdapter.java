@@ -97,7 +97,7 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.View
 //            holder.name.setText(R.string.private_data);
 //        }
         holder.address.setText(address.address);
-        Visit lastVisit = address.getLastVisit();
+        //Visit lastVisit = address.lastVisit;
         holder.lastContactImg.setVisibility(View.GONE);
         holder.lastContact.setText("");
         holder.assigned.setText("");
@@ -116,8 +116,8 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.View
         else {
             holder.gender.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icons8_user_male_skin_type_4_50));
         }
-        if (lastVisit != null) {
-            holder.lastContact.setText(dateFormatter.format(lastVisit.date));
+        if (address.lastVisit != null) {
+            holder.lastContact.setText(dateFormatter.format(address.lastVisit));
             holder.lastContactImg.setVisibility(View.VISIBLE);
         }
         if (address.territory != null && address.territory.assignedPub != null) {

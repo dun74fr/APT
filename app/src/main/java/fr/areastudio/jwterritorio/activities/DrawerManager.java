@@ -1,21 +1,35 @@
 package fr.areastudio.jwterritorio.activities;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.activeandroid.query.Select;
+import com.activeandroid.util.IOUtils;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import fr.areastudio.jwterritorio.R;
+import fr.areastudio.jwterritorio.model.JsonExporter;
 import fr.areastudio.jwterritorio.model.Publisher;
 
 /**
@@ -56,25 +70,55 @@ class DrawerManager implements NavigationView.OnNavigationItemSelectedListener {
         }
         pubName.setText(pub.name);
         pubEmail.setText(pub.email);
-        pubCongregation.setText(pub.congregation.name);
+        pubCongregation.setText(settings.getString("congregation",""));
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_emergencias) {
-            Intent intent = new Intent(activity,EmergencyActivity.class);
-            activity.startActivity(intent);
+        if (id == R.id.nav_backup) {
+            String json = new JsonExporter(this.activity).writeJson();
+            String fileName = "apt_backup.aptbk";
+            File dir = new File(activity.getCacheDir(), "bkp");
+            dir.mkdirs();
+            File file = new File(dir, fileName);
+            try {
+                FileOutputStream fOut = new FileOutputStream(file);
+                fOut.write(json.getBytes());
+                fOut.flush();
+                fOut.close();
+
+            Uri uri = FileProvider.getUriForFile(this.activity, activity.getPackageName()+".fileprovider", file);
+
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setType("*/*");
+            intent.setDataAndType(uri, activity.getContentResolver().getType(uri));
+            intent.putExtra(Intent.EXTRA_SUBJECT, "APT backup");
+            intent.putExtra(Intent.EXTRA_TEXT, "Here's the backup file");
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+
+            try {
+                activity.startActivity(Intent.createChooser(intent, "Backup"));
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(this.activity, "No App Available", Toast.LENGTH_SHORT).show();
+            }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
         }
-        if (id == R.id.nav_calls) {
-            Intent intent = new Intent(activity,ContactActivity.class);
-            activity.startActivity(intent);
-        }
-        if (id == R.id.poi) {
-            Intent intent = new Intent(activity,WebPointsActivity.class);
-            activity.startActivity(intent);
-        }
+//        if (id == R.id.nav_calls) {
+//            Intent intent = new Intent(activity,ContactActivity.class);
+//            activity.startActivity(intent);
+//        }
+//        if (id == R.id.poi) {
+//            Intent intent = new Intent(activity,WebPointsActivity.class);
+//            activity.startActivity(intent);
+//        }
         DrawerLayout drawer = activity.findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -85,13 +85,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             for (Address ad : addresses
                     ) {
-                if (ad.lat != null && ad.lng != null) {
+                if (ad.lat != null && ad.lng != null && ad.territory != null) {
                     try {
                         LatLng gps = new LatLng(Double.parseDouble(ad.lat), Double.parseDouble(ad.lng));
                         builder.include(gps);
                         IconGenerator ic = new IconGenerator(this);
                         TextView t = new TextView(this);
-                        if (ad.territory.assignedPub != null){
+                        if (ad.territory != null && ad.territory.assignedPub != null){
                             ic.setColor(getResources().getColor(R.color.red));
                         }
                         else {
@@ -144,8 +144,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         gender.setImageDrawable(ContextCompat.getDrawable(MapsActivity.this, R.drawable.icons8_user_male_skin_type_4_50));
                     }
 
-                    if (ad.getLastVisit() != null) {
-                        ((TextView)v.findViewById(R.id.lastContact)).setText(dateFormatter.format(ad.getLastVisit().date));
+                    if (ad.lastVisit != null) {
+                        ((TextView)v.findViewById(R.id.lastContact)).setText(dateFormatter.format(ad.lastVisit));
                         v.findViewById(R.id.lastContactImg).setVisibility(View.VISIBLE);
                     }
                     if (ad.territory.assignedPub != null) {
@@ -174,6 +174,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .execute();
 
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            boolean haspoints = false;
             for (Address ad : addresses
                     ) {
                 if (ad.lat != null && ad.lng != null) {
@@ -182,11 +183,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         builder.include(gps);
                         Marker m = mMap.addMarker(new MarkerOptions().position(gps).title(ad.name));
                         m.setTag(ad);
+                        haspoints = true;
+
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                     }
 
                 }
+            }
+
+
+            if (!haspoints){
+                builder.include(new LatLng(-17, -66));
             }
             LatLngBounds bounds = builder.build();
 

@@ -16,8 +16,8 @@ public class Territory extends Model {
     @Column(name = "uuid")
     public String uuid;
 
-    @Column(name = "congregation", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-    public Congregation congregation;
+//    @Column(name = "congregation", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
+//    public Congregation congregation;
 
     @Column(name = "number")
     public String number;
@@ -27,6 +27,10 @@ public class Territory extends Model {
 
     @Column(name = "publisher", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public Publisher assignedPub;
+
+    @Column(name = "image")
+    public String image;
+
 
     public Territory() {
         super();

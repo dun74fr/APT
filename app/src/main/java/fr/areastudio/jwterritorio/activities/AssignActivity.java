@@ -48,7 +48,7 @@ import fr.areastudio.jwterritorio.model.Address;
 import fr.areastudio.jwterritorio.model.DbUpdate;
 import fr.areastudio.jwterritorio.model.Publisher;
 import fr.areastudio.jwterritorio.model.Territory;
-import fr.areastudio.jwterritorio.services.UpdaterReceiver;
+//import fr.areastudio.jwterritorio.services.UpdaterReceiver;
 
 public class AssignActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AssignAddressAdapter.AssignAddressListener {
@@ -79,10 +79,10 @@ public class AssignActivity extends AppCompatActivity
                     intent = new Intent(AssignActivity.this, MyAddressesActivity.class);
                     AssignActivity.this.startActivity(intent);
                     return true;
-                case R.id.navigation_web:
-                    intent = new Intent(AssignActivity.this, WebActivity.class);
-                    AssignActivity.this.startActivity(intent);
-                    return true;
+//                case R.id.navigation_web:
+//                    intent = new Intent(AssignActivity.this, WebActivity.class);
+//                    AssignActivity.this.startActivity(intent);
+//                    return true;
             }
             return false;
         }
@@ -215,7 +215,7 @@ public class AssignActivity extends AppCompatActivity
     }
     private void refresh(boolean force){
         onSelectionChanged(new ArrayList<Territory>());
-        List<Territory> territories = new Select().from(Territory.class).execute();
+        List<Territory> territories = new Select().from(Territory.class).orderBy("name").execute();
         if (territories.size() > 0 && !force ) {
             List<MapGroup> mapgroups = new ArrayList<>();
             for (Territory t : territories) {
@@ -227,10 +227,11 @@ public class AssignActivity extends AppCompatActivity
         }
         else {
             mSwipeRefresh.setRefreshing(true);
-            new GetTerritoryTask(this,getResources().getString(R.string.territory_url),settings.getString("congregation_uuid", "")) {
+            new GetTerritoryTask(this,settings.getString("serverUrl","")) {
                 @Override
                 protected void onPostExecute(Boolean success) {
                     {
+                        super.onPostExecute(success);
                         //mAuthTask = null;
                         mSwipeRefresh.setRefreshing(false);
 

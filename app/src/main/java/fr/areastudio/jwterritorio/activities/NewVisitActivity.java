@@ -267,7 +267,10 @@ public class NewVisitActivity extends AppCompatActivity {
             visit.nextTheme = nextTheme.getText().toString();
             visit.publication = Integer.parseInt("".equals(publication.getText().toString()) ? "0" : publication.getText().toString());
             visit.video = Integer.parseInt("".equals(video.getText().toString()) ? "0" : video.getText().toString());
-
+            if (address.lastVisit == null || address.lastVisit.getTime() < visit.date.getTime()){
+                address.lastVisit = visit.date;
+                address.save();
+            }
             if (!nextDate.getText().toString().equals(getString(R.string.indefinida))){
                 visit.nextVisitDate = nextCalendar.getTime();
             }
@@ -291,9 +294,9 @@ public class NewVisitActivity extends AppCompatActivity {
                 update.updateType = "CREATE";
             }
             visit.save();
-            if (address.territory.assignedPub != null && address.territory.assignedPub.uuid == me.uuid) {
+            //if (address.territory.assignedPub != null && address.territory.assignedPub.uuid == me.uuid) {
                 update.save();
-            }
+            //}
             onBackPressed();
             return true;
         }

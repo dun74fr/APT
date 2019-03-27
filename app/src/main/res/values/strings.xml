@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">CEP2018</string>
+    <string name="app_name" translatable="false">APT</string>
 
     <string name="navigation_drawer_open">Open nav</string>
     <string name="navigation_drawer_close">Close nav</string>
@@ -59,18 +59,39 @@
         <item>Contacted by phone</item>
     </string-array>
 
-
-    <string-array name="languages">
-        <item>Spanish</item>
-        <item>Portuguese</item>
-        <item>Quechua</item>
-        <item>Aymara</item>
-        <item>Guarani</item>
+    <string-array name="contact_type">
+        <item></item>
+        <item>Never seen</item>
+        <item>Visit</item>
+        <item>Bible study</item>
+        <item>Phone</item>
+        <item>Phone visit</item>
+        <item>Phone study</item>
     </string-array>
 
-    <string name="login_url" translatable="false">https://api.ptbvl.org/api/v1/user/{email}/{password}</string>
-    <string name="emergency_url" translatable="false">https://api.ptbvl.org/api/v1/emergency/all</string>
-    <string name="territory_url" translatable="false">https://api.ptbvl.org/api/v1/territory</string>
+    <string-array name="languages">
+        <item>Aymara</item>
+        <item>Chinese</item>
+        <item>Chiquitano</item>
+        <item>English</item>
+        <item>French</item>
+        <item>Guarani</item>
+        <item>Guarayu</item>
+        <item>Ignaciano</item>
+        <item>Japonese</item>
+        <item>Korean</item>
+        <item>Low german</item>
+        <item>Portuguese</item>
+        <item>Quechua</item>
+        <item>Russian</item>
+        <item>Spanish</item>
+        <item>Tsimane</item>
+    </string-array>
+
+    <string name="login_url" translatable="false">&amp;operation=login&amp;user={email}&amp;password={password}</string>
+    <string name="emergency_url" translatable="false"></string>
+    <!--<string name="territory_url" translatable="false">https://script.google.com/macros/s/AKfycbyvsEP5oqDaN54flnxkRT2tTKsWeMcjjYjuoL5km8SVCcY8zaU/exec?spreadsheetId=1TrTTjKL7AOBqthL2-ITdvqxAcu8U8P6yEnXvz4LBpR0</string>-->
+    <string name="last_news_url" translatable="false">&amp;operation=get&amp;entity=news</string>
     <string name="confirm_assign">Assignment confirmation</string>
     <string name="filters">Filters</string>
     <string name="last_news">Last news</string>
@@ -120,6 +141,7 @@
     <string name="action_help">Help</string>
     <string name="indefinida">Undefined</string>
     <string name="logout">Logout</string>
+    <string name="generate_s13">Generate s13</string>
     <string name="volunteer_atention">Volunteer atention</string>
     <string name="emergency">Emergency</string>
     <string name="family_title">Family description</string>
@@ -127,7 +149,7 @@
     <string name="confirm_type_change">Are you sure you want to change the contact type ?</string>
     <string name="cancel">Cancel</string>
     <string name="new_info">New information available on main screen</string>
-    <string name="last_news_url">https://cep2018.ptbvl.org/last_news_es.json</string>
+
     <string name="read_button">ACCEPT</string>
     <string name="update_error">An error occurred during update</string>
     <string name="send_error_log">Send log</string>
@@ -145,6 +167,12 @@
     <string name="removed_from_my_dir">Removed from my personal list</string>
     <string name="new_visit">New visit</string>
     <string name="remove_from_my_dir">Remove from my personal list</string>
+    <string name="prompt_url">Server URL</string>
+    <string name="backup">Backup</string>
+    <string name="clear_sync">Clear sync data</string>
+    <string name="loose_unsync">Some unsynced data could be lost</string>
+    <string name="help_btn"><u>Help</u></string>
+    <string name="version_mismatch">Server version different from client version</string>
     <!--<string name="territory_url">http://192.168.2.105:8080/api/v1/territory</string>-->
 
 

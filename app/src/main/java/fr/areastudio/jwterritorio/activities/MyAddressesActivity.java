@@ -43,6 +43,7 @@ import java.util.List;
 
 import fr.areastudio.jwterritorio.MyApplication;
 import fr.areastudio.jwterritorio.R;
+import fr.areastudio.jwterritorio.common.CommonTools;
 import fr.areastudio.jwterritorio.model.Address;
 import fr.areastudio.jwterritorio.model.Publisher;
 import fr.areastudio.jwterritorio.model.Territory;
@@ -77,10 +78,10 @@ public class MyAddressesActivity extends AppCompatActivity
                     intent = new Intent(MyAddressesActivity.this,AssignActivity.class);
                     MyAddressesActivity.this.startActivity(intent);
                     return true;
-                case R.id.navigation_web:
-                    intent = new Intent(MyAddressesActivity.this,WebActivity.class);
-                    MyAddressesActivity.this.startActivity(intent);
-                    return true;
+//                case R.id.navigation_web:
+//                    intent = new Intent(MyAddressesActivity.this,WebActivity.class);
+//                    MyAddressesActivity.this.startActivity(intent);
+//                    return true;
             }
             return false;
         }
@@ -157,8 +158,13 @@ public class MyAddressesActivity extends AppCompatActivity
 
     private void refresh(boolean force) {
         final Publisher me = ((MyApplication)getApplication()).getMe();
-        List<Territory> territories = new Select().from(Territory.class).where("publisher = ?",me.getId()).execute();
-
+        List<Territory> territories;
+        if (settings.getString("view_all","0").equals("0")) {
+            territories = new Select().from(Territory.class).where("publisher = ?", me.getId()).orderBy("name").execute();
+        }
+        else {
+            territories = new Select().from(Territory.class).orderBy("name").execute();
+        }
         if (territories.size() > 0 && !force) {
 
 //            Long[] idsl = new Long[territories.size()];
@@ -183,10 +189,19 @@ public class MyAddressesActivity extends AppCompatActivity
 //            });
             List<TypeGroup> mapgroups = new ArrayList<>();
             for (Territory t : territories) {
-                mapgroups.add(new TypeGroup(t.name, t.getAddresses()));
+                mapgroups.add(new TypeGroup(t,t.name, t.getAddresses()));
             }
 
             List<Address> addresses = new Select().from(Address.class).where("publisher = ?", me.getId()).or("my_local_dir = ?", true).execute();
+            List<Address> newaddresses = new ArrayList<>(addresses);
+            if (addresses != null) {
+                for (Address ad : addresses) {
+                    if (!ad.myLocalDir && !"DRAFT".equals(ad.status)){
+                        newaddresses.remove(ad);
+                    }
+                }
+            }
+            addresses = new ArrayList<>(newaddresses);
             if (addresses.size() > 0) {
                 Collections.sort(addresses, new Comparator<Address>() {
                     @Override
@@ -199,7 +214,7 @@ public class MyAddressesActivity extends AppCompatActivity
                 for (Address a : addresses) {
                     if (!a.type.equals(type)){
                         type = a.type;
-                        currentGroup = new TypeGroup(getTypeTitle(type),new ArrayList<Address>());
+                        currentGroup = new TypeGroup(null,getTypeTitle(type),new ArrayList<Address>());
                         mapgroups.add(currentGroup);
                     }
                     currentGroup.getItems().add(a);
@@ -216,9 +231,10 @@ public class MyAddressesActivity extends AppCompatActivity
             territories = new Select().from(Territory.class).execute();
             if (territories.size() == 0 || force) {
                 mSwipeRefresh.setRefreshing(true);
-                new GetTerritoryTask(this,getResources().getString(R.string.territory_url), settings.getString("congregation_uuid", "")) {
+                new GetTerritoryTask(this,settings.getString("serverUrl","")) {
                     @Override
                     protected void onPostExecute(Boolean success) {
+                        super.onPostExecute(success);
                         //mAuthTask = null;
                         mSwipeRefresh.setRefreshing(false);
 
@@ -237,8 +253,17 @@ public class MyAddressesActivity extends AppCompatActivity
                 List<TypeGroup> mapgroups = new ArrayList<>();
                 List<Address> addresses = new Select().from(Address.class).where("publisher = ?", me.getId()).or("my_local_dir = ?", true)
                         .execute();
-
+                List<Address> newaddresses = new ArrayList<>(addresses);
+                if (addresses != null) {
+                    for (Address ad : addresses) {
+                        if (!ad.myLocalDir && !"DRAFT".equals(ad.status)){
+                            newaddresses.remove(ad);
+                        }
+                    }
+                }
+                addresses = new ArrayList<>(newaddresses);
                 if (addresses.size() > 0) {
+
                     Collections.sort(addresses, new Comparator<Address>() {
                         @Override
                         public int compare(Address o1, Address o2) {
@@ -250,7 +275,7 @@ public class MyAddressesActivity extends AppCompatActivity
                     for (Address a : addresses) {
                         if (!a.type.equals(type)){
                             type = a.type;
-                            currentGroup = new TypeGroup(getTypeTitle(type),new ArrayList<Address>());
+                            currentGroup = new TypeGroup(null,getTypeTitle(type),new ArrayList<Address>());
                             mapgroups.add(currentGroup);
                         }
                         currentGroup.getItems().add(a);
@@ -266,15 +291,10 @@ public class MyAddressesActivity extends AppCompatActivity
     }
 
     private String getTypeTitle(String type){
-        if ("false".equals(type)) {
+        if ("".equals(type)) {
             return getString(R.string.new_visit);
         }
-        String returnString = type.replace("PHONE",getString(R.string.phone));
-        returnString = returnString.replace("VISIT",getString(R.string.visit));
-        returnString = returnString.replace("NOT_AT_HOME",getString(R.string.not_at_home));
-        returnString = returnString.replace("BIBLE_COURSE",getString(R.string.bible_study));
-        returnString = returnString.replace("|"," / ");
-        return returnString;
+        return getResources().getStringArray(R.array.contact_type)[CommonTools.getPositioninArray(this, R.array.contact_type_values, type)];
     }
 
     @Override
@@ -303,6 +323,9 @@ public class MyAddressesActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_map) {
+            if (mMyAddressAdapter == null){
+                return true;
+            }
             long[] ids = new long[mMyAddressAdapter.getAddresses().size()];
             for (int i = 0; i < mMyAddressAdapter.getAddresses().size(); i++){
                 ids[i] = mMyAddressAdapter.getAddresses().get(i).getId();
@@ -381,5 +404,10 @@ public class MyAddressesActivity extends AppCompatActivity
         Intent intent = new Intent(MyAddressesActivity.this, ViewAddressActivity.class);
                 intent.putExtra("address_id",address.getId());
                 MyAddressesActivity.this.startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
+        refresh(true);
     }
 }

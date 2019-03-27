@@ -151,63 +151,27 @@
                 android:hint="@string/phone_number"
                 android:layout_weight="1"/>
         </LinearLayout>
-
+        <TextView
+            style="@style/AppTheme.TextSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/territory" />
+        <Spinner
+            android:id="@+id/territory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
         <TextView
             style="@style/AppTheme.TextSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/contact_type" />
-
-        <LinearLayout
+        <Spinner
+            android:id="@+id/contactType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:entries="@array/contact_type"/>
 
-            <CheckBox
-                android:id="@+id/not_at_home"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_weight="1"
-                android:button="@drawable/not_at_home"
-                android:text="@string/not_at_home" />
-            <CheckBox
-                android:id="@+id/type_phone"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_weight="1"
-                android:button="@drawable/phone"
-                android:text="@string/phone" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <CheckBox
-                android:id="@+id/visit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_gravity="start"
-                android:layout_weight="1"
-                android:button="@drawable/new_visit"
-                android:text="@string/visit" />
-
-            <CheckBox
-                android:id="@+id/course"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_weight="1"
-                android:button="@drawable/bible_study"
-                android:text="@string/bible_study" />
-        </LinearLayout>
 
         <TextView
             style="@style/AppTheme.TextSection"

@@ -1,0 +1,1 @@
+ALTER TABLE Territory ADD COLUMN image TEXT;

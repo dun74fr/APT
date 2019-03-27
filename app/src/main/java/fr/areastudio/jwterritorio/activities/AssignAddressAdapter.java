@@ -3,6 +3,7 @@ package fr.areastudio.jwterritorio.activities;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -108,8 +109,9 @@ public class AssignAddressAdapter extends ExpandableRecyclerViewAdapter<AssignAd
 //            holder.name.setText(R.string.private_data);
 //        }
         holder.address.setText(address.address);
-        Visit lastVisit = address.getLastVisit();
+        //Visit lastVisit = address.getLastVisit();
         holder.lastContactImg.setVisibility(View.GONE);
+
         holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.secondaryTextColor));
         holder.terr.setText(address.territory == null ? "" : address.territory.name);
         if ("DRAFT".equals(address.status)){
@@ -122,15 +124,15 @@ public class AssignAddressAdapter extends ExpandableRecyclerViewAdapter<AssignAd
         } else {
             holder.gender.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icons8_user_male_skin_type_4_50));
         }
-        if (lastVisit != null) {
-            holder.lastContact.setText(dateFormatter.format(lastVisit.date));
+        if (address.lastVisit != null) {
+            holder.lastContact.setText(dateFormatter.format(address.lastVisit));
             holder.lastContactImg.setVisibility(View.VISIBLE);
         }
         else {
             holder.lastContact.setText("");
             holder.lastContactImg.setVisibility(View.GONE);
         }
-        if (address.territory.assignedPub != null) {
+        if (address.territory != null && address.territory.assignedPub != null) {
             holder.assigned.setText(address.territory.assignedPub.name);
         }
         else {
@@ -161,6 +163,7 @@ public class AssignAddressAdapter extends ExpandableRecyclerViewAdapter<AssignAd
         holder.setMapTitle(mapGroup);
         holder.assignedTo.setText("");
         holder.unasigned.setVisibility(View.GONE);
+        holder.map.setVisibility(View.INVISIBLE);
         final Territory territory = ((MapGroup) mapGroup).getTerritory();
         if (territory.assignedPub != null) {
             holder.assignedTo.setText(territory.assignedPub.name);
@@ -195,6 +198,17 @@ public class AssignAddressAdapter extends ExpandableRecyclerViewAdapter<AssignAd
             });
             holder.unasigned.setVisibility(View.VISIBLE);
         }
+        if (territory.image !=null && territory.image.length() > 0){
+            holder.map.setVisibility(View.VISIBLE);
+            holder.map.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, FullScreenViewActivity.class);
+                    i.putExtra("image", territory.image);
+                    context.startActivity(i);
+                }
+            });
+        }
         holder.selectToAssign.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -216,6 +230,7 @@ public class AssignAddressAdapter extends ExpandableRecyclerViewAdapter<AssignAd
 
         private final ImageView arrow;
         private final ImageView unasigned;
+        private final ImageView map;
         private final CheckBox selectToAssign;
         private final TextView assignedTo;
         private TextView mapTitle;
@@ -227,6 +242,8 @@ public class AssignAddressAdapter extends ExpandableRecyclerViewAdapter<AssignAd
             assignedTo = itemView.findViewById(R.id.assignedTo);
             arrow = itemView.findViewById(R.id.list_item_genre_arrow);
             unasigned = itemView.findViewById(R.id.unasigned);
+            map = itemView.findViewById(R.id.map);
+
         }
 
         public void setMapTitle(ExpandableGroup group) {

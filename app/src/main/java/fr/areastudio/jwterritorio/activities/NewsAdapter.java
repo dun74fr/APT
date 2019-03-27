@@ -3,33 +3,21 @@ package fr.areastudio.jwterritorio.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.areastudio.jwterritorio.R;
-import fr.areastudio.jwterritorio.model.Medic;
-import fr.areastudio.jwterritorio.model.Medic;
 import fr.areastudio.jwterritorio.model.News;
-import fr.areastudio.jwterritorio.model.Visit;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
 

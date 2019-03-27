@@ -12,11 +12,20 @@
         android:title="@string/send_error_log"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_clearsync"
+        android:orderInCategory="100"
+        android:title="@string/clear_sync"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_logout"
         android:orderInCategory="100"
         android:title="@string/logout"
         app:showAsAction="never" />
-
+    <item
+        android:id="@+id/action_generates13"
+        android:orderInCategory="100"
+        android:title="@string/generate_s13"
+        app:showAsAction="never" />
     <!--<item-->
         <!--android:id="@+id/action_settings"-->
         <!--android:orderInCategory="100"-->

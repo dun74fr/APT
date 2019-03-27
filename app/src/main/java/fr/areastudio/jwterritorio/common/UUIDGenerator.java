@@ -17,8 +17,6 @@ public class UUIDGenerator {
         ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
         bb.putLong(uuid.getMostSignificantBits());
         bb.putLong(uuid.getLeastSignificantBits());
-        return android.util.Base64.encodeToString(bb.array(), Base64.URL_SAFE).replace("==","");
-
-
+        return android.util.Base64.encodeToString(bb.array(), Base64.URL_SAFE).replace("==","").replace("\n","");
     }
 }

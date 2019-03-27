@@ -22,7 +22,6 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <provider
@@ -38,10 +37,10 @@
             android:value="jwterritorio.db" />
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="20" />
+            android:value="24" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="fr.areastudio.jwterritorio.model.Address,fr.areastudio.jwterritorio.model.Congregation,fr.areastudio.jwterritorio.model.Territory,fr.areastudio.jwterritorio.model.Visit,fr.areastudio.jwterritorio.model.Publisher,fr.areastudio.jwterritorio.model.Assignment,fr.areastudio.jwterritorio.model.Medic,fr.areastudio.jwterritorio.model.Speciality,fr.areastudio.jwterritorio.model.Category,fr.areastudio.jwterritorio.model.Zone, fr.areastudio.jwterritorio.model.DbUpdate,fr.areastudio.jwterritorio.model.News" />
+            android:value="fr.areastudio.jwterritorio.model.Address,fr.areastudio.jwterritorio.model.Congregation,fr.areastudio.jwterritorio.model.Territory,fr.areastudio.jwterritorio.model.Visit,fr.areastudio.jwterritorio.model.Publisher,fr.areastudio.jwterritorio.model.Assignments,fr.areastudio.jwterritorio.model.Medic,fr.areastudio.jwterritorio.model.Speciality,fr.areastudio.jwterritorio.model.Category,fr.areastudio.jwterritorio.model.Zone, fr.areastudio.jwterritorio.model.DbUpdate,fr.areastudio.jwterritorio.model.News" />
 
         <activity
             android:name=".activities.SplashActivity"
@@ -58,11 +57,16 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.BROWSABLE"/>
                 <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:scheme="jwterr" />
+                <data android:scheme="${applicationId}" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <data android:scheme="content" android:pathPattern=".*\\.aptbk" android:mimeType="*/*"/>
+                <data android:scheme="file" android:pathPattern=".*\\.aptbk" android:mimeType="*/*"/>
             </intent-filter>
         </activity>
         <activity
@@ -106,34 +110,45 @@
             android:name=".activities.ViewAddressActivity"
             android:label="@string/title_activity_view_address"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.WebActivity"
-            android:label="@string/title_web"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <!--<activity-->
+            <!--android:name=".activities.WebActivity"-->
+            <!--android:label="@string/title_web"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
         <activity android:name=".activities.SimpleScannerActivity" />
         <activity android:name=".activities.NewVisitActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_activity_new_visit"/>
-        <activity android:name=".activities.EmergencyActivity"
-            android:label="@string/title_activity_emergency"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.EmergencyMapsActivity"
-            android:label="@string/title_activity_maps"/>
+        <activity android:name=".activities.FullScreenViewActivity" />
+        <!--<activity android:name=".activities.EmergencyActivity"-->
+            <!--android:label="@string/title_activity_emergency"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
+        <!--<activity android:name=".activities.EmergencyMapsActivity"-->
+            <!--android:label="@string/title_activity_maps"/>-->
         <activity android:name=".activities.HelpActivity" />
-        <activity android:name=".activities.ContactActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".activities.WebPointsActivity"
-            android:label="@string/title_webpoints"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--<activity android:name=".activities.ContactActivity"-->
+            <!--android:theme="@style/AppTheme.NoActionBar"/>-->
+        <!--<activity android:name=".activities.WebPointsActivity"-->
+            <!--android:label="@string/title_webpoints"-->
+            <!--android:theme="@style/AppTheme.NoActionBar"/>-->
 
-        <receiver
-            android:name=".common.BootReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".services.UpdaterReceiver" />
+        <!--<receiver-->
+            <!--android:name=".common.BootReceiver"-->
+            <!--android:enabled="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.BOOT_COMPLETED"></action>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <!--<receiver android:name=".services.UpdaterReceiver" />-->
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="org.ptbvl.apt.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths" />
+        </provider>
     </application>
 
 </manifest>

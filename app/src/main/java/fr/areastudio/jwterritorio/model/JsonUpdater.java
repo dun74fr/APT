@@ -18,7 +18,7 @@ public class JsonUpdater {
 
 
     private final Context context;
-    private SimpleDateFormat dateformatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.0000");
+    private SimpleDateFormat dateformatter = new SimpleDateFormat("yyyy-MM-dd");
 
     public JsonUpdater(Context context){
         this.context = context;
@@ -43,26 +43,20 @@ public class JsonUpdater {
                     if (t == null){
                         continue;
                     }
-                    m.put("assignedPub",t.assignedPub == null ? null : t.assignedPub.uuid);
+                    m.put("assignedPublisher",t.assignedPub == null ? "" : t.assignedPub.uuid);
                     o.put("object",m);
                 }
                 else if (u.model.equals("VISIT")){
                     JSONObject m = new JSONObject();
+                    o.put("model","ADDRESS");
+                    o.put("updateType","UPDATE");
                     Visit v = new Select().from(Visit.class).where("uuid = ?", u.uuid).executeSingle();
                     if (v == null){
                         continue;
                     }
-                    m.put("date",dateformatter.format(v.date));
-                    m.put("type",v.type);
-                    m.put("uuid",v.uuid);
-                    m.put("notes",v.notes);
-                    m.put("publication",v.publication);
-                    m.put("video",v.video);
-                    m.put("nextTheme",v.nextTheme);
-                    if (v.nextVisitDate != null) {
-                        m.put("nextVisitDate", dateformatter.format(v.nextVisitDate));
-                    }
-                    m.put("address",v.address.uuid);
+                    o.put("uuid",v.address.uuid);
+                    m.put("lastVisit",dateformatter.format(v.date));
+
                     m.put("publisher",v.publisher.uuid);
                     o.put("object",m);
                 }
@@ -72,13 +66,17 @@ public class JsonUpdater {
                     if (a == null){
                         continue;
                     }
+                    if (u.updateType.equals("CREATE")){
+                        m.put("_created_by",context.getSharedPreferences(MainActivity.PREFS,0).getString("user",""));
+                    }
                     m.put("type",a.type);
                     m.put("uuid",a.uuid);
                     m.put("description",a.description);
                     m.put("address",a.address);
-                    m.put("sign",a.sign);
-                    m.put("mute",a.mute);
-                    m.put("deaf",a.deaf);
+                    m.put("sign",a.sign ? "1" :"0");
+                    m.put("mute",a.mute ? "1" :"0");
+                    m.put("deaf",a.deaf ? "1" :"0");
+                    m.put("blind",a.blind ? "1" :"0");
                     m.put("homeDescription", a.homeDescription);
                     m.put("familyDescription", a.familyDescription);
                     m.put("age", a.age);
@@ -88,9 +86,9 @@ public class JsonUpdater {
                     m.put("lng", a.lng);
                     m.put("name", a.name);
                     m.put("phone", a.phone);
-                    m.put("status", a.status);
+                    m.put("status", "".equals(a.status) ? "VALID":a.status);
                     if (a.territory == null) {
-                        Territory undefined = new Select().from(Territory.class).where("number = -1").executeSingle();
+                        Territory undefined = new Select().from(Territory.class).where("number = ?","-1").executeSingle();
                         a.territory = undefined;
                         if (a.territory == null){
                             m.put("territory", "");
@@ -98,8 +96,9 @@ public class JsonUpdater {
                         else {
                             m.put("territory", a.territory.uuid);
                         }
+                    }else {
+                        m.put("territory", a.territory.uuid);
                     }
-
                     m.put("publisher",a.assignedPub == null ? null : a.assignedPub.uuid);
                     o.put("object",m);
                 }

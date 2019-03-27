@@ -8,20 +8,33 @@
     android:paddingTop="50dp"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="140dp"
-        android:scaleType="fitStart"
-        android:src="@drawable/logotipo_cep2018" />
-
-    <TextView
-        android:id="@+id/title"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/last_news"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:gravity="center_horizontal"
+            android:text="@string/last_news"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textSize="36sp"
+            android:textStyle="italic"
+            android:typeface="serif"
+            android:textAlignment="center"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+
+
     <android.support.v7.widget.RecyclerView
         android:layout_weight="1"
         android:id="@+id/news"

@@ -59,12 +59,33 @@
     </string-array>
 
 
+    <string-array name="contact_type">
+        <item></item>
+        <item>Nunca visto</item>
+        <item>Revisita</item>
+        <item>Estudio bíblico</item>
+        <item>Teléfono</item>
+        <item>Revisita por teléfono</item>
+        <item>Estudio por teléfono</item>
+    </string-array>
+
     <string-array name="languages">
-        <item>Español</item>
-        <item>Portugués</item>
-        <item>Quechua</item>
         <item>Aymara</item>
+        <item>Chino</item>
+        <item>Chiquitano</item>
+        <item>Inglés</item>
+        <item>Francés</item>
         <item>Guarani</item>
+        <item>Guarayu</item>
+        <item>Ignaciano</item>
+        <item>Japonés</item>
+        <item>Koreano</item>
+        <item>Alemán bajo</item>
+        <item>Portugues</item>
+        <item>Quechua</item>
+        <item>Ruso</item>
+        <item>Español</item>
+        <item>Tsimané</item>
     </string-array>
 
     <string name="confirm_assign">Confirmación de asignación</string>
@@ -112,7 +133,7 @@
     <string name="bookmark">Marca página</string>
     <string name="visits_title">VISITAS</string>
     <string name="need_google_maps">Necesita Google Maps para navegación</string>
-    <string name="help_webpage">help_pt.html</string>
+    <string name="help_webpage">help_es.html</string>
     <string name="action_help">Ayuda</string>
     <string name="indefinida">Indefinida</string>
     <string name="logout">Logout</string>
@@ -123,7 +144,6 @@
     <string name="cancel">Cancelar</string>
     <string name="confirm_type_change">Está seguro que quiere cambiar el tipo de contacto ?</string>
     <string name="new_info">Nueva información disponible en la página principal</string>
-    <string name="last_news_url">https://cep2018.ptbvl.org/last_news_es.json</string>
     <string name="read_button">ACEPTAR</string>
     <string name="update_error">Surgió un error durante la subida de los cambios</string>
     <string name="send_error_log">Enviar log</string>
@@ -141,6 +161,13 @@
     <string name="removed_from_my_dir">Quitado de mi lista personal</string>
     <string name="new_visit">Nueva visita</string>
     <string name="remove_from_my_dir">Quitar de mi lista personal</string>
+    <string name="prompt_url">URL del servidor</string>
+    <string name="backup">Backup</string>
+    <string name="clear_sync">Borrar datos de sincronización</string>
+    <string name="loose_unsync">Los datos no sincronizados podrían perderse</string>
+    <string name="help_btn"><u>Ayuda</u></string>
+    <string name="version_mismatch">Version del servidor diferente de la aplicación</string>
+    <string name="generate_s13">Generar s13</string>
     <!--<string name="territory_url">http://192.168.2.105:8080/api/v1/territory</string>-->
 
 

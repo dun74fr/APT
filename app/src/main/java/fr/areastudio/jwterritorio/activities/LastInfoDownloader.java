@@ -10,6 +10,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -19,6 +22,7 @@ import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import fr.areastudio.jwterritorio.R;
@@ -28,7 +32,7 @@ import fr.areastudio.jwterritorio.model.News;
 public class LastInfoDownloader extends AsyncTask<String, Integer, Boolean> {
 
     private final Context context;
-
+    private SimpleDateFormat dateformatter = new SimpleDateFormat("yyyy-MM-dd");
     public LastInfoDownloader(Context context) {
         this.context = context;
     }
@@ -36,7 +40,8 @@ public class LastInfoDownloader extends AsyncTask<String, Integer, Boolean> {
     @Override
     protected Boolean doInBackground(String... params) {
         try {
-            URL url = new URL(context.getString(R.string.last_news_url));
+            URL url = new URL((context.getSharedPreferences(MainActivity.PREFS,0).getString("serverUrl","") + context.getString(R.string.last_news_url)).replace("\n",""));
+
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setRequestProperty("User-Agent", System.getProperty("http.agent"));
@@ -65,15 +70,23 @@ public class LastInfoDownloader extends AsyncTask<String, Integer, Boolean> {
 
             input.close();
 
-            Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
-                    .serializeNulls()
-                    .create();
+//            Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
+//                    .serializeNulls()
+//                    .create();
+            JSONArray newsJson = new JSONArray(out.toString());
+
+
             try {
-                List<News> newsList = gson.fromJson(out.toString(), new TypeToken<List<News>>() {
-                }.getType());
                 boolean newNews = false;
-                for (News news:newsList) {
-                    if (!new Select().from(News.class).where("uuid = ? ",news.uuid).exists()){
+                for (int i = 0; i < newsJson.length(); i++) {
+                    JSONObject n = newsJson.getJSONObject(i);
+                    if (!new Select().from(News.class).where("uuid = ? ",n.optString("_id")).exists()){
+                        News news = new News();
+                        news.uuid =n.optString("_id");
+                        news.title =n.optString("title");
+                        news.content = n.optString("content");
+                        news.date = dateformatter.parse(n.getString("date"));
+                        news.alert = "1" .equals(n.optString("alert"));
                         news.save();
                         newNews = true;
                     }

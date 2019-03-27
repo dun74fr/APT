@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EdgeEffect;
 import android.widget.EditText;
@@ -32,11 +34,15 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import fr.areastudio.jwterritorio.MyApplication;
 import fr.areastudio.jwterritorio.R;
 import fr.areastudio.jwterritorio.common.CommonTools;
+import fr.areastudio.jwterritorio.common.TerritoryArrayAdapter;
 import fr.areastudio.jwterritorio.common.UUIDGenerator;
 import fr.areastudio.jwterritorio.model.Address;
 import fr.areastudio.jwterritorio.model.DbUpdate;
@@ -53,10 +59,10 @@ public class NewAddressActivity extends AppCompatActivity {
     CheckBox mute;
     CheckBox blind;
     CheckBox sign;
-    CheckBox notAtHome;
-    CheckBox visit;
-    CheckBox course;
-    CheckBox type_phone;
+//    CheckBox notAtHome;
+//    CheckBox visit;
+//    CheckBox course;
+//    CheckBox type_phone;
     EditText address;
     EditText phone;
     EditText lat;
@@ -70,6 +76,9 @@ public class NewAddressActivity extends AppCompatActivity {
     private SharedPreferences settings;
     private Address currentaddress;
     private TextView familyDescription;
+    private Spinner contactType;
+    private Spinner territory;
+    private TerritoryArrayAdapter territoryAdapter;
 
 
     @Override
@@ -98,10 +107,12 @@ public class NewAddressActivity extends AppCompatActivity {
         homeDescription = findViewById(R.id.home_description);
         familyDescription = findViewById(R.id.familyDescription);
         description = findViewById(R.id.notes);
-        notAtHome = findViewById(R.id.not_at_home);
-        type_phone = findViewById(R.id.type_phone);
-        visit = findViewById(R.id.visit);
-        course = findViewById(R.id.course);
+        contactType = findViewById(R.id.contactType);
+        territory = findViewById(R.id.territory);
+        List<Territory> territories = new Select().from(Territory.class).execute();
+        territoryAdapter = new TerritoryArrayAdapter(this,territories);
+        //territoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        territory.setAdapter(territoryAdapter);
 
 
         mapBtn.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +126,10 @@ public class NewAddressActivity extends AppCompatActivity {
                 }
             }
         });
+        if (!settings.getString("default_language","").equals("")) {
+            language.setSelection(CommonTools.getPositioninArray(this, R.array.languages_values, settings.getString("default_language","")));
+        }
+
 
         Intent intent = getIntent();
         if (intent != null && intent.getExtras() != null && intent.getExtras().getLong("address_id") > 0){
@@ -144,12 +159,16 @@ public class NewAddressActivity extends AppCompatActivity {
         familyDescription.setText(currentaddress.familyDescription);
         language.setSelection(CommonTools.getPositioninArray(this,R.array.languages_values,currentaddress.language));
         age.setSelection(CommonTools.getPositioninArray(this,R.array.ages_values,currentaddress.age));
-        visit.setChecked(currentaddress.type.contains("VISIT"));
-        course.setChecked(currentaddress.type.contains("COURSE"));
-        notAtHome.setChecked(currentaddress.type.contains("NOT_AT_HOME"));
-
+        contactType.setSelection(CommonTools.getPositioninArray(this,R.array.contact_type_values,currentaddress.type));
+        territory.setSelection(territoryAdapter.getPosition(currentaddress.territory));
         this.address.setText(currentaddress.address);
 
+        if (((MyApplication)getApplicationContext()).getMe().type.equals("ADMINISTRATOR") || "1".equals(settings.getString("allow_modify_gps","0")) || currentaddress.lat ==null || currentaddress.lat.length()== 0 || currentaddress.lng ==null || currentaddress.lng.length() == 0 ){
+            mapBtn.setVisibility(View.VISIBLE);
+        }
+        else {
+            mapBtn.setVisibility(View.GONE);
+        }
 
     }
 
@@ -181,7 +200,9 @@ public class NewAddressActivity extends AppCompatActivity {
         Intent intent;
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_ok) {
-            if (((lat.getText().length() == 0 || lng.getText().length() == 0 || address.getText().length() == 0) && !type_phone.isChecked()) ||(type_phone.isChecked() && phone.getText().length() == 0)){
+
+            String type = getResources().getStringArray(R.array.contact_type_values)[contactType.getSelectedItemPosition()];
+            if (((lat.getText().length() == 0 || lng.getText().length() == 0 || address.getText().length() == 0) && !type.contains("PHONE")) ||(type.contains("PHONE") && phone.getText().length() == 0)){
                 new AlertDialog.Builder(this).setMessage(R.string.not_enough_info).create().show();
                 return true;
             }
@@ -217,29 +238,13 @@ public class NewAddressActivity extends AppCompatActivity {
             a.homeDescription = homeDescription.getText().toString();
             a.familyDescription = familyDescription.getText().toString();
             a.description = description.getText().toString();
-            a.status = a.status != null && a.status.equals("VALIDATE") ? "VALIDATE" : "DRAFT";
-            String type = "";
-            if (notAtHome.isChecked()){
-                type = "NOT_AT_HOME";
+            a.territory = (Territory) territory.getSelectedItem();
+
+            if (a.status == null || "".equals(a.status)){
+                a.status = "DRAFT";
             }
-            if (visit.isChecked()){
-                if (type.length() > 0){
-                    type += "|";
-                }
-                type += "VISIT";
-            }
-            if (course.isChecked()){
-                if (type.length() > 0){
-                    type += "|";
-                }
-                type += "BIBLE_COURSE";
-            }
-            if (type_phone.isChecked()){
-                if (type.length() > 0){
-                    type += "|";
-                }
-                type += "PHONE";
-            }
+
+
             a.type = type;
             a.lat = lat.getText().toString();
             a.lng = lng.getText().toString();

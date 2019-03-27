@@ -11,8 +11,8 @@ public class Publisher extends Model {
     @Column(name = "uuid")
     public String uuid;
 
-    @Column(name = "congregation", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-    public Congregation congregation;
+//    @Column(name = "congregation", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
+//    public Congregation congregation;
 
     @Column(name = "name")
     public String name;

@@ -9,13 +9,15 @@ import fr.areastudio.jwterritorio.model.Territory;
 
 public class TypeGroup extends ExpandableGroup<Address> {
 
+    Territory territory;
 
-
-    public TypeGroup(String title, List<Address> items) {
+    public TypeGroup(Territory territory,String title, List<Address> items) {
         super(title, items);
-
+        this.territory = territory;
     }
 
 
-
+    public Territory getTerritory() {
+        return territory;
+    }
 }

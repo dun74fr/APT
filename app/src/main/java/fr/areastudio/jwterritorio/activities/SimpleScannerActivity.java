@@ -88,16 +88,18 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             String[] uuids = result.split(",");
             for (int i = 0; i < uuids.length; i++) {
                 Territory t = new Select().from(Territory.class).where("uuid = ?", uuids[i]).executeSingle();
-                Publisher me = new Select().from(Publisher.class).where("email = ?",settings.getString("user","")).executeSingle();
-                t.assignedPub = me;
-                t.save();
-                DbUpdate dbUpdate = new DbUpdate();
-                dbUpdate.date = new Date();
-                dbUpdate.model = "TERRITORY";
-                dbUpdate.updateType = "UPDATE";
-                dbUpdate.publisherUuid = ((MyApplication) getApplication()).getMe().uuid;
-                dbUpdate.uuid = t.uuid;
-                dbUpdate.save();
+                if (t != null) {
+                    Publisher me = new Select().from(Publisher.class).where("email = ?", settings.getString("user", "")).executeSingle();
+                    t.assignedPub = me;
+                    t.save();
+                    DbUpdate dbUpdate = new DbUpdate();
+                    dbUpdate.date = new Date();
+                    dbUpdate.model = "TERRITORY";
+                    dbUpdate.updateType = "UPDATE";
+                    dbUpdate.publisherUuid = ((MyApplication) getApplication()).getMe().uuid;
+                    dbUpdate.uuid = t.uuid;
+                    dbUpdate.save();
+                }
             }
             Dialog dialog = new Dialog(this);
             dialog.setCancelable(true);

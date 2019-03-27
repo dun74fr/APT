@@ -5,25 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
-
 import fr.areastudio.jwterritorio.MyApplication;
-import fr.areastudio.jwterritorio.R;
-import fr.areastudio.jwterritorio.common.UUIDGenerator;
-import fr.areastudio.jwterritorio.model.Address;
-import fr.areastudio.jwterritorio.model.AddressJsonParser;
-import fr.areastudio.jwterritorio.model.Congregation;
 import fr.areastudio.jwterritorio.model.Publisher;
-import fr.areastudio.jwterritorio.model.Territory;
-import fr.areastudio.jwterritorio.model.Visit;
-import fr.areastudio.jwterritorio.services.Updater;
+//import fr.areastudio.jwterritorio.services.Updater;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -51,8 +37,8 @@ public class SplashActivity extends AppCompatActivity {
             }
             else {
                 ((MyApplication) getApplication()).setMe(me);
-                Updater alarm = new Updater();
-                alarm.setAlarm(getApplicationContext());
+//                Updater alarm = new Updater();
+//                alarm.setAlarm(getApplicationContext());
 
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);

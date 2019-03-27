@@ -10,6 +10,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -22,6 +23,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -39,6 +41,8 @@ import fr.areastudio.jwterritorio.R;
 import fr.areastudio.jwterritorio.common.PermissionUtils;
 import fr.areastudio.jwterritorio.common.UUIDGenerator;
 import fr.areastudio.jwterritorio.model.Address;
+import fr.areastudio.jwterritorio.model.DbUpdate;
+import fr.areastudio.jwterritorio.model.JsonExporter;
 import fr.areastudio.jwterritorio.model.News;
 import fr.areastudio.jwterritorio.model.Territory;
 import fr.areastudio.jwterritorio.model.Visit;
@@ -65,10 +69,10 @@ public class MainActivity extends AppCompatActivity
                     intent = new Intent(MainActivity.this,AssignActivity.class);
                     MainActivity.this.startActivity(intent);
                     return true;
-                case R.id.navigation_web:
-                    intent = new Intent(MainActivity.this,WebActivity.class);
-                    MainActivity.this.startActivity(intent);
-                    return true;
+//                case R.id.navigation_web:
+//                    intent = new Intent(MainActivity.this,WebActivity.class);
+//                    MainActivity.this.startActivity(intent);
+//                    return true;
                 case R.id.navigation_address_list:
                     intent = new Intent(MainActivity.this,MyAddressesActivity.class);
                     MainActivity.this.startActivity(intent);
@@ -135,7 +139,7 @@ public class MainActivity extends AppCompatActivity
         if (getIntent().getScheme() != null && getIntent().getScheme().equals("jwterr")){
             new AlertDialog.Builder(MainActivity.this).setMessage(getIntent().getDataString()).setCancelable(true).create().show();
         }
-        enableMyLocation();
+        settings.edit().remove("LAST_LANG_CHECK").apply();
         if (isOnline() && new Date().getTime() - settings.getLong("LAST_LANG_CHECK", 0) > 1000 * 60 * 60 * 24 * 2) {
             new LastInfoDownloader(this) {
                 @Override
@@ -150,6 +154,26 @@ public class MainActivity extends AppCompatActivity
                 }
             }.execute();
         }
+        Intent intent = getIntent();
+        if (intent.getData() != null && intent.getData().getScheme() != null) {
+            if (intent.getData().getScheme().equals("content")) {
+                Uri uri = intent.getData();
+                try {
+                    new JsonExporter(this).importFile(getContentResolver().openInputStream(uri));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (intent.getData().getScheme().equals("file")) {
+                Uri uri = intent.getData();
+
+                try {
+                    new JsonExporter(this).importFile(getContentResolver().openInputStream(uri));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
     public boolean isOnline() {
@@ -180,6 +204,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        if (!"ADMINISTRATOR".equals(((MyApplication)getApplication()).getMe().type)) {
+            menu.removeItem(R.id.action_generates13);
+        }
         return true;
     }
 
@@ -204,24 +231,41 @@ public class MainActivity extends AppCompatActivity
 
                 }
             }).create().show();
-
             return true;
         }
         if (id == R.id.action_sendlog){
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("message/rfc822");
-            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"soportetecnico.cep2018@gmail.com"});
-            i.putExtra(Intent.EXTRA_SUBJECT, "CEP2018 Error log");
-            i.putExtra(Intent.EXTRA_TEXT   , settings.getString("error_log","No error recorded"));
+            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"soporte.apt.bolivia@gmail.com"});
+            i.putExtra(Intent.EXTRA_SUBJECT, "APT Error log");
+            i.setType("text/html");
+            i.putExtra(Intent.EXTRA_TEXT   , Html.fromHtml(settings.getString("error_log","No error recorded")));
             try {
                 startActivity(Intent.createChooser(i, getString(R.string.send_error_log)));
             } catch (android.content.ActivityNotFoundException ex) {
                 Toast.makeText(MainActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
             }
         }
+        if (id == R.id.action_clearsync) {
+            new AlertDialog.Builder(this).setMessage(R.string.loose_unsync).setPositiveButton(R.string.action_ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    new Delete().from(DbUpdate.class).execute();
+                }
+            }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            }).create().show();
+            return true;
+        }
         if (id == R.id.action_help) {
                startActivity(new Intent(this,HelpActivity.class));
             return true;
+        }
+        if (id == R.id.action_generates13) {
+            new Printer(this).doWebViewPrint();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -260,4 +304,6 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+
+
 }

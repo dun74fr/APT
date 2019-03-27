@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <!--<group android:checkableBehavior="single">&ndash;&gt;-->
-        <!--&lt;!&ndash;<item&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/nav_camera"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:icon="@drawable/ic_menu_camera"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:title="Import" />&ndash;&gt;-->
-        <!--&lt;!&ndash;<item&ndash;&gt;-->
+    <group android:checkableBehavior="single">-->
+        <item
+            android:id="@+id/nav_backup"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/backup" />
+
             <!--&lt;!&ndash;android:id="@+id/nav_gallery"&ndash;&gt;-->
             <!--&lt;!&ndash;android:icon="@drawable/ic_menu_gallery"&ndash;&gt;-->
             <!--&lt;!&ndash;android:title="Gallery" />&ndash;&gt;-->
@@ -20,21 +20,21 @@
             <!--&lt;!&ndash;android:id="@+id/nav_manage"&ndash;&gt;-->
             <!--&lt;!&ndash;android:icon="@drawable/ic_menu_manage"&ndash;&gt;-->
             <!--&lt;!&ndash;android:title="Tools" />&ndash;&gt;-->
-    <!--</group>&ndash;&gt;-->
+    </group>
 
-    <item android:title="Emergencias">
-        <menu>
-            <item
-                android:id="@+id/nav_emergencias"
-                android:icon="@drawable/ic_local_hospital_black_48dp"
-                android:title="@string/medical_atention" />
-            <item
-                android:id="@+id/nav_calls"
-                android:icon="@drawable/ic_phone_black_48dp"
-                android:title="@string/contacts" />
-        </menu>
-    </item>
-    <item android:id="@+id/poi" android:title="@string/puntos_of_interest"
-        android:icon="@drawable/baseline_map_black_48dp"/>
+    <!--<item android:title="Emergencias">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_emergencias"-->
+                <!--android:icon="@drawable/ic_local_hospital_black_48dp"-->
+                <!--android:title="@string/medical_atention" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_calls"-->
+                <!--android:icon="@drawable/ic_phone_black_48dp"-->
+                <!--android:title="@string/contacts" />-->
+        <!--</menu>-->
+    <!--</item>-->
+    <!--<item android:id="@+id/poi" android:title="@string/puntos_of_interest"-->
+        <!--android:icon="@drawable/baseline_map_black_48dp"/>-->
 
 </menu>

@@ -98,6 +98,9 @@ public class Address extends Model implements Parcelable {
     @Column(name = "my_local_dir")
     public boolean myLocalDir;
 
+    @Column(name = "last_visit")
+    public Date lastVisit;
+
     public Address() {
         super();
         this.uuid = UUIDGenerator.uuidToBase64();
@@ -108,15 +111,15 @@ public class Address extends Model implements Parcelable {
         this.name = name;
     }
 
-    public Visit getLastVisit() {
-        List<Visit> v = new Select().from(Visit.class).where("address = ?",this.getId()).orderBy("date desc").execute();
-        for (Visit vis : v) {
-            if (!"NOT AT HOME".equals(vis.type)){
-                return vis;
-            }
-        }
-        return null;
-    }
+//    public Visit getLastVisit() {
+//        List<Visit> v = new Select().from(Visit.class).where("address = ?",this.getId()).orderBy("date desc").execute();
+//        for (Visit vis : v) {
+//            if (!"NOT AT HOME".equals(vis.type)){
+//                return vis;
+//            }
+//        }
+//        return null;
+//    }
 
     public List<Visit> getVisits() {
         return new Select().from(Visit.class).where("address = ?", this.getId()).orderBy("date desc").execute();
