@@ -98,7 +98,7 @@ public class Printer {
 //        }
         sb.append("<body>");
         //sb.append("<h1 style='text-align:center'>");
-        List<Territory> terrs = new Select().from(Territory.class).where("number <> ","-1").orderBy("name").execute();
+        List<Territory> terrs = new Select().from(Territory.class).where("number <> ?","-1").orderBy("name").execute();
 
         for (int i = 0; i <= Math.ceil(terrs.size()/5);i++){
             sb.append("<div>");
@@ -115,10 +115,10 @@ public class Printer {
                 sb.append("<td style=\"width:200px;text-align: center\">");
                 List<Assignments> assigns = new Select().from(Assignments.class).where("territory = ?", terrs.get(j).getId()).orderBy("assign_date").execute();
                 for (Assignments a: assigns) {
-                    sb.append(" <table border=\"1\" style=\"width:100%;border-collapse: collapse;\">");
+                    sb.append(" <table border=\"1\" style=\"width:198px;border-collapse: collapse;\">");
                     sb.append("<tr valign=\"top\">");
                     sb.append("<td colspan=\"2\" style=\"text-align: center\">");
-                    sb.append("<div style=\"width:100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;\">"+((a.publisher == null || a.publisher.name == null) ? "" : a.publisher.name.toUpperCase())+"</div>");
+                    sb.append("<div style=\"width:196px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;\">"+((a.publisher == null || a.publisher.name == null) ? "" : a.publisher.name.toUpperCase())+"</div>");
                     sb.append("</td>");
                     sb.append("</tr>");
                     sb.append("<tr valign=\"top\" style=\"font-size: 0.8rem\">");
@@ -127,6 +127,7 @@ public class Printer {
                     sb.append("</tr>");
                     sb.append("</table>");
                 }
+                sb.append("&nbsp;</td>");
             }
             sb.append("</tr>");
             sb.append("</table>");

@@ -145,7 +145,7 @@ public class AssignActivity extends AppCompatActivity
                 final View assignByWebLayout = dialog.findViewById(R.id.assign_web_block);
                 ImageView assignByWebBtn = dialog.findViewById(R.id.assignBtn);
                 final Spinner publishers = dialog.findViewById(R.id.publishers);
-                publishers.setAdapter(new ArrayAdapter<Publisher>(AssignActivity.this, android.R.layout.simple_spinner_dropdown_item,new Select().from(Publisher.class).<Publisher>execute()));
+                publishers.setAdapter(new ArrayAdapter<Publisher>(AssignActivity.this, android.R.layout.simple_spinner_dropdown_item,new Select().from(Publisher.class).where("email <> ?", "").<Publisher>execute()));
                 assignByWeb.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

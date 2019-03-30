@@ -151,10 +151,10 @@ public abstract class GetTerritoryTask extends AsyncTask<Void, Void, Boolean> {
                 if (p == null){
                     p = new Publisher();
                     p.uuid = j.optString("_id");
-                    p.name = j.getString("name");
-                    p.email = j.getString("email");
-                    p.type = j.getString("type");
                 }
+                p.name = j.getString("name");
+                p.type = j.getString("type");
+                p.email = j.getString("email");
                 p.type = j.getString("type");
                 p.save();
                 existingpubs.add(p.uuid);
