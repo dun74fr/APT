@@ -32,6 +32,7 @@ import fr.areastudio.jwterritorio.R;
 import fr.areastudio.jwterritorio.common.CommonTools;
 import fr.areastudio.jwterritorio.model.Address;
 import fr.areastudio.jwterritorio.model.DbUpdate;
+import fr.areastudio.jwterritorio.model.Territory;
 import fr.areastudio.jwterritorio.model.Visit;
 
 public class ViewAddressActivity extends AppCompatActivity {
@@ -305,7 +306,34 @@ public class ViewAddressActivity extends AppCompatActivity {
                 address.save();
                 menu.findItem(R.id.action_add_to_my_dir).setTitle(address.myLocalDir ? R.string.remove_from_my_dir : R.string.action_add_to_my_dir);
                 Toast.makeText(this, address.myLocalDir ? R.string.added_to_my_dir : R.string.removed_from_my_dir, Toast.LENGTH_SHORT).show();
-                ;
+                return true;
+
+            }
+            else if (id == R.id.action_dupp_add) {
+                address.myLocalDir = !address.myLocalDir;
+                Address newAddress = new Address();
+                newAddress.address = address.address;
+                newAddress.age = address.age;
+                newAddress.blind = address.blind;
+                newAddress.deaf = address.deaf;
+                newAddress.description = address.description;
+                newAddress.familyDescription = address.familyDescription;
+                newAddress.gender = address.gender;
+                newAddress.homeDescription = address.homeDescription;
+                newAddress.language = address.language;
+                newAddress.lat = address.lat;
+                newAddress.lng = address.lng;
+                newAddress.mute = address.mute;
+                newAddress.name = address.name + " - 2";
+                newAddress.phone = address.phone;
+                newAddress.sign = address.sign;
+                newAddress.status = "DRAFT";
+                newAddress.territory = new Select().from(Territory.class).where("number = -1").executeSingle();
+                newAddress.type = "";
+                newAddress.save();
+                Intent newintent = new Intent(this, ViewAddressActivity.class);
+                newintent.putExtra("address_id",newAddress.getId());
+                this.startActivity(newintent);
                 return true;
 
             }

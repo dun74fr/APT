@@ -86,6 +86,7 @@
         <item>Ruso</item>
         <item>Español</item>
         <item>Tsimané</item>
+        <item>Kreyòl Ayisyen</item>
     </string-array>
 
     <string name="confirm_assign">Confirmación de asignación</string>
@@ -128,7 +129,7 @@
     <string name="next_theme">Tema para la próxima visita</string>
     <string name="next_visit_date_title">HORARIO PARA LA PROXIMA VISITA</string>
     <string name="next_visit_date">Horario par la próxima visita</string>
-    <string name="bible_study_title">CURSO BIBLICO</string>
+    <string name="bible_study_title">CURSO BÍBLICO</string>
     <string name="study_pub">Publicación</string>
     <string name="bookmark">Marca página</string>
     <string name="visits_title">VISITAS</string>
@@ -168,6 +169,7 @@
     <string name="help_btn"><u>Ayuda</u></string>
     <string name="version_mismatch">Version del servidor diferente de la aplicación</string>
     <string name="generate_s13">Generar s13</string>
+    <string name="action_dupp_add">"Duplicar dirección  "</string>
     <!--<string name="territory_url">http://192.168.2.105:8080/api/v1/territory</string>-->
 
 

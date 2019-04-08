@@ -47,7 +47,7 @@ import fr.areastudio.jwterritorio.model.Address;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private String ids;
+
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean mPermissionDenied = false;
@@ -57,7 +57,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        ids = getIntent().getStringExtra("ids");
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -170,7 +170,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             String placeholders = TextUtils.join(",", placeholdersArray);
 
 
-            List<Address> addresses = new Select().from(Address.class).where("Id IN (" + placeholders + ")", idsl)
+            List<Address> addresses = new Select().from(Address.class).where("Id IN (" + placeholders + ")", (Object[]) idsl)
                     .execute();
 
             LatLngBounds.Builder builder = new LatLngBounds.Builder();

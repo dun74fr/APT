@@ -86,6 +86,7 @@
         <item>Russian</item>
         <item>Spanish</item>
         <item>Tsimane</item>
+        <item>Kreyòl Ayisyen</item>
     </string-array>
 
     <string name="login_url" translatable="false">&amp;operation=login&amp;user={email}&amp;password={password}</string>
@@ -172,7 +173,8 @@
     <string name="clear_sync">Clear sync data</string>
     <string name="loose_unsync">Some unsynced data could be lost</string>
     <string name="help_btn"><u>Help</u></string>
-    <string name="version_mismatch">Server version different from client version</string>
+    <string name="action_dupp_add">Duplicate address</string>
+    <string name="version_mismatch">Server version different from the client</string>
     <!--<string name="territory_url">http://192.168.2.105:8080/api/v1/territory</string>-->
 
 

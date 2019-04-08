@@ -61,12 +61,12 @@
 
     <string-array name="contact_type">
         <item></item>
-        <item>Nunca visto</item>
+        <item>Ninguém em casa</item>
         <item>Revisita</item>
-        <item>Estudio bíblico</item>
-        <item>Teléfono</item>
-        <item>Revisita por teléfono</item>
-        <item>Estudio por teléfono</item>
+        <item>Estudo bíblico</item>
+        <item>Telefone</item>
+        <item>Revisita por telefone</item>
+        <item>Estudo por telefone</item>
     </string-array>
 
     <string-array name="languages">
@@ -86,6 +86,7 @@
         <item>Ruso</item>
         <item>Español</item>
         <item>Tsimané</item>
+        <item>Kreyòl Ayisyen</item>
     </string-array>
 
     <string name="confirm_assign">"Confirmação de designação"</string>
@@ -128,7 +129,7 @@
     <string name="next_theme">"Tema para a próxima visita "</string>
     <string name="next_visit_date_title">"HORÁRIO PARA A PRÓXIMA VISITA"</string>
     <string name="next_visit_date">"Horário para a próxima visita"</string>
-    <string name="bible_study_title">"CURSO BÍBLICO"</string>
+    <string name="bible_study_title">ESTUDO BÍBLICO</string>
     <string name="study_pub">"Publicação"</string>
     <string name="bookmark">"Marcador de página"</string>
     <string name="visits_title">"VISITAS"</string>
@@ -168,5 +169,6 @@
     <string name="help_btn"><u>Ajuda</u></string>
     <string name="version_mismatch">Versão do servidor diferente do aplicativo</string>
     <string name="generate_s13">Gerar s13</string>
+    <string name="action_dupp_add">Endereço duplicado</string>
 
 </resources>

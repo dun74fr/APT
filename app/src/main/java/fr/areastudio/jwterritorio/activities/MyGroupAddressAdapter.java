@@ -67,6 +67,7 @@ public class MyGroupAddressAdapter extends ExpandableRecyclerViewAdapter<MyGroup
 
     public interface MyAddressListener {
         void onAddressClicked(Address address);
+
         void onRefresh();
     }
 
@@ -94,9 +95,9 @@ public class MyGroupAddressAdapter extends ExpandableRecyclerViewAdapter<MyGroup
         holder.lastContactImg.setVisibility(View.GONE);
         holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.secondaryTextColor));
         holder.terr.setText(address.territory == null ? "" : address.territory.name);
-        if ("DRAFT".equals(address.status)){
+        if ("DRAFT".equals(address.status)) {
             holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.disabled));
-        }else if ("VALIDATE".equals(address.status)){
+        } else if ("VALIDATE".equals(address.status)) {
             holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.validate));
         }
         if ("f".equals(address.gender)) {
@@ -107,28 +108,26 @@ public class MyGroupAddressAdapter extends ExpandableRecyclerViewAdapter<MyGroup
         if (address.lastVisit != null) {
             holder.lastContact.setText(dateFormatter.format(address.lastVisit));
             holder.lastContactImg.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             holder.lastContact.setText("");
             holder.lastContactImg.setVisibility(View.GONE);
         }
         if (address.territory != null && address.territory.assignedPub != null) {
             holder.assigned.setText(address.territory.assignedPub.name);
-        }
-        else {
+        } else {
             holder.assigned.setText("");
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    listener.onAddressClicked(address);
+                listener.onAddressClicked(address);
             }
         });
     }
 
     public List<Address> getAddresses() {
         List<Address> allAddresses = new ArrayList<>();
-        for(ExpandableGroup<Address> g : this.getGroups()){
+        for (ExpandableGroup<Address> g : this.getGroups()) {
             allAddresses.addAll(g.getItems());
         }
         return allAddresses;
@@ -140,7 +139,7 @@ public class MyGroupAddressAdapter extends ExpandableRecyclerViewAdapter<MyGroup
         holder.setMapTitle(mapGroup);
         holder.map.setVisibility(View.INVISIBLE);
         final Territory territory = ((TypeGroup) mapGroup).getTerritory();
-        if (territory != null && territory.image !=null && territory.image.length() > 0){
+        if (territory != null && territory.image != null && territory.image.length() > 0) {
             holder.map.setVisibility(View.VISIBLE);
             holder.map.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -150,41 +149,40 @@ public class MyGroupAddressAdapter extends ExpandableRecyclerViewAdapter<MyGroup
                     context.startActivity(i);
                 }
             });
-
-            if (territory.assignedPub != null) {
-                holder.unasigned.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        new AlertDialog.Builder(context).setMessage(R.string.confirm_unassign).setPositiveButton(R.string.action_ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                territory.assignedPub = null;
-                                territory.save();
-                                DbUpdate up = new DbUpdate();
-                                up.uuid =territory.uuid;
-                                up.model="TERRITORY";
-                                up.date = new Date();
-                                up.publisherUuid = ((MyApplication)context.getApplicationContext()).getMe().uuid;
-                                up.updateType = "UPDATE";
-                                up.save();
-                                notifyDataSetChanged();
-                                listener.onRefresh();
-                                dialogInterface.dismiss();
-                            }
-                        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        }).create().show();
-
-                    }
-                });
-                holder.unasigned.setVisibility(View.VISIBLE);
-            }
         }
-    }
+        if (territory.assignedPub != null) {
+            holder.unasigned.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new AlertDialog.Builder(context).setMessage(R.string.confirm_unassign).setPositiveButton(R.string.action_ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            territory.assignedPub = null;
+                            territory.save();
+                            DbUpdate up = new DbUpdate();
+                            up.uuid = territory.uuid;
+                            up.model = "TERRITORY";
+                            up.date = new Date();
+                            up.publisherUuid = ((MyApplication) context.getApplicationContext()).getMe().uuid;
+                            up.updateType = "UPDATE";
+                            up.save();
+                            notifyDataSetChanged();
+                            listener.onRefresh();
+                            dialogInterface.dismiss();
+                        }
+                    }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    }).create().show();
 
+                }
+            });
+            holder.unasigned.setVisibility(View.VISIBLE);
+        }
+
+    }
 
 
     public class MapViewHolder extends GroupViewHolder {
@@ -193,6 +191,7 @@ public class MyGroupAddressAdapter extends ExpandableRecyclerViewAdapter<MyGroup
         private TextView mapTitle;
         private final ImageView map;
         private final ImageView unasigned;
+
         public MapViewHolder(View itemView) {
             super(itemView);
             mapTitle = itemView.findViewById(R.id.list_item_map_name);

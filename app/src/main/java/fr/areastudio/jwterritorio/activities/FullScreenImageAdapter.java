@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.List;
 
 import fr.areastudio.jwterritorio.R;
+import fr.areastudio.jwterritorio.common.TouchImageView;
 
 
 public class FullScreenImageAdapter extends PagerAdapter {
@@ -59,7 +60,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
   
         imgDisplay = (ImageView) viewLayout.findViewById(R.id.imgDisplay);
         btnClose = (ImageButton) viewLayout.findViewById(R.id.btnClose);
-
+        Picasso.get().setLoggingEnabled(true);
         Picasso.get().load(_images.get(position)).into(imgDisplay);
 
 
