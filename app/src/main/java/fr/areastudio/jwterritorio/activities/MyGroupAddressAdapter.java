@@ -150,7 +150,7 @@ public class MyGroupAddressAdapter extends ExpandableRecyclerViewAdapter<MyGroup
                 }
             });
         }
-        if (territory.assignedPub != null) {
+        if (territory != null && territory.assignedPub != null) {
             holder.unasigned.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

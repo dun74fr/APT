@@ -14,8 +14,8 @@ android {
         applicationId "org.ptbvl.apt"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 50
-        versionName "0.4.8b"
+        versionCode 51
+        versionName "0.4.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
