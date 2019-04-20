@@ -1,41 +1,23 @@
 package fr.areastudio.jwterritorio.activities;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.activeandroid.Model;
 import com.activeandroid.query.Select;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlacePicker;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,7 +25,6 @@ import fr.areastudio.jwterritorio.MyApplication;
 import fr.areastudio.jwterritorio.R;
 import fr.areastudio.jwterritorio.common.CommonTools;
 import fr.areastudio.jwterritorio.common.TerritoryArrayAdapter;
-import fr.areastudio.jwterritorio.common.UUIDGenerator;
 import fr.areastudio.jwterritorio.model.Address;
 import fr.areastudio.jwterritorio.model.DbUpdate;
 import fr.areastudio.jwterritorio.model.Publisher;
@@ -69,6 +50,7 @@ public class NewAddressActivity extends AppCompatActivity {
     EditText lng;
     EditText homeDescription;
     EditText description;
+
 
 
     private ImageButton mapBtn;
@@ -115,15 +97,20 @@ public class NewAddressActivity extends AppCompatActivity {
         territory.setAdapter(territoryAdapter);
 
 
+        final Intent intent = getIntent();
         mapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                 try {
-                    startActivityForResult(builder.build(NewAddressActivity.this), PLACE_PICKER_REQUEST);
-                }catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e){
-
+                //PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                     //starfActivityForResult(builder.build(NewAddressActivity.this), PLACE_PICKER_REQUEST);
+                if (intent.getExtras() != null) {
+                    long[] ids = {intent.getExtras().getLong("address_id")};
+                    startActivityForResult(new Intent(NewAddressActivity.this, MapsActivity.class).putExtra("ids", ids), PLACE_PICKER_REQUEST);
                 }
+                else {
+                    startActivityForResult(new Intent(NewAddressActivity.this, MapsActivity.class), PLACE_PICKER_REQUEST);
+                }
+
             }
         });
         if (!settings.getString("default_language","").equals("")) {
@@ -131,10 +118,11 @@ public class NewAddressActivity extends AppCompatActivity {
         }
 
 
-        Intent intent = getIntent();
-        if (intent != null && intent.getExtras() != null && intent.getExtras().getLong("address_id") > 0){
+        if (intent != null && intent.getExtras() != null && intent.getExtras().getLong("address_id") > 0) {
             initView(intent.getExtras().getLong("address_id"));
         }
+
+
     }
 
     private void initView(long address_id) {
@@ -168,6 +156,8 @@ public class NewAddressActivity extends AppCompatActivity {
         }
         else {
             mapBtn.setVisibility(View.GONE);
+            lat.setEnabled(false);
+            lng.setEnabled(false);
         }
 
     }
@@ -177,9 +167,8 @@ public class NewAddressActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Place place = PlacePicker.getPlace(this,data);
-                lat.setText(String.valueOf(place.getLatLng().latitude));
-                lng.setText(String.valueOf(place.getLatLng().longitude));
+                lat.setText(String.valueOf(data.getExtras().getDouble("lat")));
+                lng.setText(String.valueOf(data.getExtras().getDouble("lng")));
             }
         }
     }

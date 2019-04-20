@@ -175,6 +175,7 @@
     <string name="help_btn"><u>Help</u></string>
     <string name="action_dupp_add">Duplicate address</string>
     <string name="version_mismatch">Server version different from the client</string>
+    <string name="send_gps_btn">Use this location</string>
     <!--<string name="territory_url">http://192.168.2.105:8080/api/v1/territory</string>-->
 
 

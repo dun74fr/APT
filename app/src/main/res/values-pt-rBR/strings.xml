@@ -170,5 +170,6 @@
     <string name="version_mismatch">Versão do servidor diferente do aplicativo</string>
     <string name="generate_s13">Gerar s13</string>
     <string name="action_dupp_add">Endereço duplicado</string>
+    <string name="send_gps_btn">Usar esta posição</string>
 
 </resources>

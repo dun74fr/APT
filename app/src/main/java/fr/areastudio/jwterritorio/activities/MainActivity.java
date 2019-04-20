@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -26,26 +25,19 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
-import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import fr.areastudio.jwterritorio.MyApplication;
 import fr.areastudio.jwterritorio.R;
 import fr.areastudio.jwterritorio.common.PermissionUtils;
-import fr.areastudio.jwterritorio.common.UUIDGenerator;
-import fr.areastudio.jwterritorio.model.Address;
 import fr.areastudio.jwterritorio.model.DbUpdate;
 import fr.areastudio.jwterritorio.model.JsonExporter;
 import fr.areastudio.jwterritorio.model.News;
-import fr.areastudio.jwterritorio.model.Territory;
-import fr.areastudio.jwterritorio.model.Visit;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -114,15 +106,6 @@ public class MainActivity extends AppCompatActivity
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            if (pInfo.versionCode <=20) {
-                new AlertDialog.Builder(this).setMessage(R.string.version_obsolete).create().show();
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
         try {
             if (((MyApplication) getApplication()).getMe().type.equals("PUBLISHER")) {
                 navigation.getMenu().removeItem(R.id.navigation_assign);

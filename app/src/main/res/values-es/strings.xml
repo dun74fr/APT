@@ -170,6 +170,7 @@
     <string name="version_mismatch">Version del servidor diferente de la aplicación</string>
     <string name="generate_s13">Generar s13</string>
     <string name="action_dupp_add">"Duplicar dirección  "</string>
+    <string name="send_gps_btn">Usar esta posición</string>
     <!--<string name="territory_url">http://192.168.2.105:8080/api/v1/territory</string>-->
 
 
