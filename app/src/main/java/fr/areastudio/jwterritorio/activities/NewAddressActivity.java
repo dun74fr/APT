@@ -50,7 +50,7 @@ public class NewAddressActivity extends AppCompatActivity {
     EditText lng;
     EditText homeDescription;
     EditText description;
-
+    View territory_title;
 
 
     private ImageButton mapBtn;
@@ -91,6 +91,7 @@ public class NewAddressActivity extends AppCompatActivity {
         description = findViewById(R.id.notes);
         contactType = findViewById(R.id.contactType);
         territory = findViewById(R.id.territory);
+        territory_title = findViewById(R.id.territory_title);
         List<Territory> territories = new Select().from(Territory.class).execute();
         territoryAdapter = new TerritoryArrayAdapter(this,territories);
         //territoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -121,7 +122,16 @@ public class NewAddressActivity extends AppCompatActivity {
         if (intent != null && intent.getExtras() != null && intent.getExtras().getLong("address_id") > 0) {
             initView(intent.getExtras().getLong("address_id"));
         }
-
+        else {
+            if (((MyApplication)getApplicationContext()).getMe().type.equals("ADMINISTRATOR") || "1".equals(settings.getString("allow_modify_territory","1"))){
+                territory_title.setVisibility(View.VISIBLE);
+                territory.setVisibility(View.VISIBLE);
+            }
+            else {
+                territory_title.setVisibility(View.GONE);
+                territory.setVisibility(View.GONE);
+            }
+        }
 
     }
 
@@ -160,6 +170,16 @@ public class NewAddressActivity extends AppCompatActivity {
             lng.setEnabled(false);
         }
 
+        if (((MyApplication)getApplicationContext()).getMe().type.equals("ADMINISTRATOR") || "1".equals(settings.getString("allow_modify_territory","1"))){
+            territory_title.setVisibility(View.VISIBLE);
+            territory.setVisibility(View.VISIBLE);
+            territory.setEnabled(true);
+        }
+        else {
+            territory_title.setVisibility(View.VISIBLE);
+            territory.setVisibility(View.VISIBLE);
+            territory.setEnabled(false);
+        }
     }
 
 
