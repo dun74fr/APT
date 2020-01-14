@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -18,7 +19,7 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <application
-        android:name=".MyApplication"
+        android:name="fr.areastudio.jwterritorio.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -44,7 +45,7 @@
             android:value="fr.areastudio.jwterritorio.model.Address,fr.areastudio.jwterritorio.model.Congregation,fr.areastudio.jwterritorio.model.Territory,fr.areastudio.jwterritorio.model.Visit,fr.areastudio.jwterritorio.model.Publisher,fr.areastudio.jwterritorio.model.Assignments,fr.areastudio.jwterritorio.model.Medic,fr.areastudio.jwterritorio.model.Speciality,fr.areastudio.jwterritorio.model.Category,fr.areastudio.jwterritorio.model.Zone, fr.areastudio.jwterritorio.model.DbUpdate,fr.areastudio.jwterritorio.model.News" />
 
         <activity
-            android:name=".activities.SplashActivity"
+            android:name="fr.areastudio.jwterritorio.activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,14 +54,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MainActivity"
+            android:name="fr.areastudio.jwterritorio.activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="${applicationId}" />
+                <data android:host="apt.org" android:scheme="http" android:pathPrefix="/share"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -68,24 +69,25 @@
                 <category android:name="android.intent.category.OPENABLE" />
                 <data android:scheme="content" android:pathPattern=".*\\.aptbk" android:mimeType="*/*"/>
                 <data android:scheme="file" android:pathPattern=".*\\.aptbk" android:mimeType="*/*"/>
+
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="fr.areastudio.jwterritorio.activities.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".activities.AssignActivity"
+            android:name="fr.areastudio.jwterritorio.activities.AssignActivity"
             android:label="@string/title_activity_assign"
-            android:parentActivityName=".activities.MainActivity"
+            android:parentActivityName="fr.areastudio.jwterritorio.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="fr.areastudio.jwterritorio.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.MyAddressesActivity"
+            android:name="fr.areastudio.jwterritorio.activities.MyAddressesActivity"
             android:label="@string/title_activity_my_addresses"
-            android:parentActivityName=".activities.MainActivity"
+            android:parentActivityName="fr.areastudio.jwterritorio.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -101,31 +103,31 @@
         -->
 
         <activity
-            android:name=".activities.MapsActivity"
+            android:name="fr.areastudio.jwterritorio.activities.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".activities.NewAddressActivity"
+            android:name="fr.areastudio.jwterritorio.activities.NewAddressActivity"
             android:label="@string/title_activity_new_address"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.ViewAddressActivity"
+            android:name="fr.areastudio.jwterritorio.activities.ViewAddressActivity"
             android:label="@string/title_activity_view_address"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--<activity-->
             <!--android:name=".activities.WebActivity"-->
             <!--android:label="@string/title_web"-->
             <!--android:theme="@style/AppTheme.NoActionBar" />-->
-        <activity android:name=".activities.SimpleScannerActivity" />
-        <activity android:name=".activities.NewVisitActivity"
+        <activity android:name="fr.areastudio.jwterritorio.activities.SimpleScannerActivity" />
+        <activity android:name="fr.areastudio.jwterritorio.activities.NewVisitActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_activity_new_visit"/>
-        <activity android:name=".activities.FullScreenViewActivity" />
+        <activity android:name="fr.areastudio.jwterritorio.activities.FullScreenViewActivity" />
         <!--<activity android:name=".activities.EmergencyActivity"-->
             <!--android:label="@string/title_activity_emergency"-->
             <!--android:theme="@style/AppTheme.NoActionBar" />-->
         <!--<activity android:name=".activities.EmergencyMapsActivity"-->
             <!--android:label="@string/title_activity_maps"/>-->
-        <activity android:name=".activities.HelpActivity" />
+        <activity android:name="fr.areastudio.jwterritorio.activities.HelpActivity" />
         <!--<activity android:name=".activities.ContactActivity"-->
             <!--android:theme="@style/AppTheme.NoActionBar"/>-->
         <!--<activity android:name=".activities.WebPointsActivity"-->

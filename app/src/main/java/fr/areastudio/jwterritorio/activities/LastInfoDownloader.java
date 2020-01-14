@@ -5,10 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.activeandroid.query.Select;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,17 +13,11 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import fr.areastudio.jwterritorio.R;
-import fr.areastudio.jwterritorio.model.Address;
 import fr.areastudio.jwterritorio.model.News;
 
 public class LastInfoDownloader extends AsyncTask<String, Integer, Boolean> {

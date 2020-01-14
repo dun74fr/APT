@@ -30,7 +30,7 @@
         <Spinner
             android:id="@+id/publishers"
             android:minWidth="105dp"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
         <ImageView

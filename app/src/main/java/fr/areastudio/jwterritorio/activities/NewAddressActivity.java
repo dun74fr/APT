@@ -159,9 +159,12 @@ public class NewAddressActivity extends AppCompatActivity {
         age.setSelection(CommonTools.getPositioninArray(this,R.array.ages_values,currentaddress.age));
         contactType.setSelection(CommonTools.getPositioninArray(this,R.array.contact_type_values,currentaddress.type));
         territory.setSelection(territoryAdapter.getPosition(currentaddress.territory));
+        if (!currentaddress.myLocalDir){
+            contactType.setEnabled(false);
+        }
         this.address.setText(currentaddress.address);
 
-        if (((MyApplication)getApplicationContext()).getMe().type.equals("ADMINISTRATOR") || "1".equals(settings.getString("allow_modify_gps","0")) || currentaddress.lat ==null || currentaddress.lat.length()== 0 || currentaddress.lng ==null || currentaddress.lng.length() == 0 ){
+        if (((MyApplication)getApplicationContext()).getMe().type.equals("ADMINISTRATOR") || ("2".equals(settings.getString("allow_modify_gps","0")) && ((MyApplication)getApplicationContext()).getMe().type.equals("AUXILIAR")) || "1".equals(settings.getString("allow_modify_gps","0")) || currentaddress.lat ==null || currentaddress.lat.length()== 0 || currentaddress.lng ==null || currentaddress.lng.length() == 0 ){
             mapBtn.setVisibility(View.VISIBLE);
         }
         else {
@@ -170,7 +173,7 @@ public class NewAddressActivity extends AppCompatActivity {
             lng.setEnabled(false);
         }
 
-        if (((MyApplication)getApplicationContext()).getMe().type.equals("ADMINISTRATOR") || "1".equals(settings.getString("allow_modify_territory","1"))){
+        if (((MyApplication)getApplicationContext()).getMe().type.equals("ADMINISTRATOR") || ("2".equals(settings.getString("allow_modify_gps","0")) && ((MyApplication)getApplicationContext()).getMe().type.equals("AUXILIAR"))|| "1".equals(settings.getString("allow_modify_territory","1"))){
             territory_title.setVisibility(View.VISIBLE);
             territory.setVisibility(View.VISIBLE);
             territory.setEnabled(true);

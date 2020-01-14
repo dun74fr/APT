@@ -283,8 +283,12 @@ public abstract class GetTerritoryTask extends AsyncTask<Void, Void, Boolean> {
             e.printStackTrace();
             Context context = weakContext.get();
             if (context != null){
+                String stack = "GetTerritoryTask : " + e.getMessage() + "\n";
+                for (int i = 0; i < e.getStackTrace().length; i++) {
+                    stack += e.getStackTrace()[i] + "\n";
+                }
                 context.getSharedPreferences(
-                        MainActivity.PREFS, 0).edit().putString("error_log", "GetTerritoryTask : " + e.getMessage() + e.getStackTrace()[0].toString()).apply();
+                        MainActivity.PREFS, 0).edit().putString("error_log", stack).apply();
             }
             return false;
         }

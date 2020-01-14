@@ -30,7 +30,6 @@ import fr.areastudio.jwterritorio.R;
 import fr.areastudio.jwterritorio.model.Address;
 import fr.areastudio.jwterritorio.model.DbUpdate;
 import fr.areastudio.jwterritorio.model.Territory;
-import fr.areastudio.jwterritorio.model.Visit;
 
 import static android.view.animation.Animation.RELATIVE_TO_SELF;
 
@@ -138,6 +137,7 @@ public class MyGroupAddressAdapter extends ExpandableRecyclerViewAdapter<MyGroup
                                       ExpandableGroup mapGroup) {
         holder.setMapTitle(mapGroup);
         holder.map.setVisibility(View.INVISIBLE);
+        holder.unasigned.setVisibility(View.INVISIBLE);
         final Territory territory = ((TypeGroup) mapGroup).getTerritory();
         if (territory != null && territory.image != null && territory.image.length() > 0) {
             holder.map.setVisibility(View.VISIBLE);

@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -35,6 +36,7 @@ import java.util.Date;
 import fr.areastudio.jwterritorio.MyApplication;
 import fr.areastudio.jwterritorio.R;
 import fr.areastudio.jwterritorio.common.PermissionUtils;
+import fr.areastudio.jwterritorio.model.Address;
 import fr.areastudio.jwterritorio.model.DbUpdate;
 import fr.areastudio.jwterritorio.model.JsonExporter;
 import fr.areastudio.jwterritorio.model.News;
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences settings;
     public static final String PREFS = "JWTERRITORY";
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 2;
+
 
     private DrawerManager drawerManager;
     private RecyclerView mRecyclerView;
@@ -116,14 +120,19 @@ public class MainActivity extends AppCompatActivity
             this.startActivity(intent);
             finish();
         }
-
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the location is missing.
+            PermissionUtils.requestPermission(this, READ_EXTERNAL_STORAGE_REQUEST_CODE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE, true);
+        }
 
         navigation.setSelectedItemId(R.id.navigation_main);
         if (getIntent().getScheme() != null && getIntent().getScheme().equals("jwterr")){
             new AlertDialog.Builder(MainActivity.this).setMessage(getIntent().getDataString()).setCancelable(true).create().show();
         }
-        settings.edit().remove("LAST_LANG_CHECK").apply();
-        if (isOnline() && new Date().getTime() - settings.getLong("LAST_LANG_CHECK", 0) > 1000 * 60 * 60 * 24 * 2) {
+        //settings.edit().remove("LAST_LANG_CHECK").apply();
+        if (isOnline() && new Date().getTime() - settings.getLong("LAST_LANG_CHECK", 0) > 1000 * 60 * 60 * 12) {
             new LastInfoDownloader(this) {
                 @Override
                 protected void onPostExecute(Boolean newInfo) {
@@ -133,6 +142,29 @@ public class MainActivity extends AppCompatActivity
                         mNewsAdapter = new NewsAdapter(MainActivity.this,new Select().from(News.class).where("read = 0 or presistent = 1").<News>execute());
                         mRecyclerView.setAdapter(mNewsAdapter);
 
+                    }
+                }
+            }.execute();
+
+            new GetTerritoryTask(this,settings.getString("serverUrl","")) {
+                @Override
+                protected void onPostExecute(Boolean success) {
+                    {
+                        super.onPostExecute(success);
+                        //mAuthTask = null;
+                        if (!success) {
+                            new AlertDialog.Builder(MainActivity.this).setMessage(R.string.update_error).setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    recreate();
+                                }
+                            }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            }).create().show();
+                        }
                     }
                 }
             }.execute();
@@ -153,6 +185,14 @@ public class MainActivity extends AppCompatActivity
                     new JsonExporter(this).importFile(getContentResolver().openInputStream(uri));
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+            } else if (intent.getData().getScheme().equals("http")) {
+                System.out.println(intent.getData().getPath());
+                String uuid = intent.getData().getPath().replace("/share/","");
+                Address add = new Select().from(Address.class).where("uuid = ?",uuid).executeSingle();
+                if (add != null){
+                    add.myLocalDir = true;
+                    add.save();
                 }
             }
         }

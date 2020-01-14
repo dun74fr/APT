@@ -3,21 +3,17 @@ package fr.areastudio.jwterritorio.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.areastudio.jwterritorio.R;
-import fr.areastudio.jwterritorio.model.Address;
 import fr.areastudio.jwterritorio.model.Visit;
 
 public class VisitsAdapter extends RecyclerView.Adapter<VisitsAdapter.ViewHolder> {
@@ -89,9 +85,9 @@ public class VisitsAdapter extends RecyclerView.Adapter<VisitsAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
         final Visit visit = values.get(position);
-        holder.date.setText(dateformater.format(visit.date));
-        holder.time.setText(timeformater.format(visit.date));
-        holder.publisher.setText(visit.publisher.name);
+        holder.date.setText(visit.date == null? "" : dateformater.format(visit.date));
+        holder.time.setText(visit.date == null? "" : timeformater.format(visit.date));
+        holder.publisher.setText(visit.publisher == null ? "" : visit.publisher.name);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

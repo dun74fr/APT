@@ -31,4 +31,8 @@
         android:orderInCategory="100"
         android:title="@string/action_dupp_add"
         app:showAsAction="never" />
+    <item android:id="@+id/share_address"
+        android:orderInCategory="100"
+        android:title="@string/share"
+        android:icon="@drawable/ic_menu_share"/>
 </menu>

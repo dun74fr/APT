@@ -1,6 +1,7 @@
 package fr.areastudio.jwterritorio.activities;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,14 +22,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.activeandroid.query.Select;
 import com.google.zxing.BarcodeFormat;
@@ -182,6 +184,34 @@ public class AssignActivity extends AppCompatActivity
                     e.printStackTrace();
                 }
                 dialog.show();
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                // The absolute width of the available display size in pixels.
+                int displayWidth = displayMetrics.widthPixels;
+                // The absolute height of the available display size in pixels.
+                int displayHeight = displayMetrics.heightPixels;
+
+                // Initialize a new window manager layout parameters
+                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+
+                // Copy the alert dialog window attributes to new layout parameter instance
+                layoutParams.copyFrom(dialog.getWindow().getAttributes());
+
+                // Set the alert dialog window width and height
+                // Set alert dialog width equal to screen width 90%
+                // int dialogWindowWidth = (int) (displayWidth * 0.9f);
+                // Set alert dialog height equal to screen height 90%
+                // int dialogWindowHeight = (int) (displayHeight * 0.9f);
+
+                // Set alert dialog width equal to screen width 70%
+                int dialogWindowWidth = (int) (displayWidth * 0.9f);
+
+                // Set the width and height for the layout parameters
+                // This will bet the width and height of alert dialog
+                layoutParams.width = dialogWindowWidth;
+
+                // Apply the newly created layout parameters to the alert dialog window
+                dialog.getWindow().setAttributes(layoutParams);
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
@@ -241,7 +271,18 @@ public class AssignActivity extends AppCompatActivity
                             }
                         }
                         else {
-                            Toast.makeText(AssignActivity.this,R.string.update_error,Toast.LENGTH_LONG).show();
+                            new AlertDialog.Builder(AssignActivity.this).setMessage(R.string.update_error).setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    refresh(true);
+                                }
+                            }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            }).create().show();
+                            //Toast.makeText(AssignActivity.this,R.string.update_error,Toast.LENGTH_LONG).show();
                         }
                     }
                 }

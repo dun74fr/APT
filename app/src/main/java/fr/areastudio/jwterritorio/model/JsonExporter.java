@@ -13,7 +13,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.areastudio.jwterritorio.activities.MainActivity;
@@ -88,6 +87,7 @@ public class JsonExporter {
                 o.put("gender", u.gender);
                 o.put("age", u.age);
                 o.put("status", u.status);
+                o.put("myLocalDir", u.myLocalDir ? "1" : "0");
                 if (u.lastVisit != null) {
                     o.put("lastVisit", dateformatter.format(u.lastVisit));
                 }
@@ -115,10 +115,10 @@ public class JsonExporter {
                 o.put("publication", u.publication);
                 o.put("video", u.video);
                 if (u.nextVisitDate != null) {
-                    dateformatter.format(u.nextVisitDate);
+                    o.put("nextVisitDate",dateformatter.format(u.nextVisitDate));
                 }
                 if (u.date != null) {
-                    dateformatter.format(u.date);
+                   o.put("date",dateformatter.format(u.date));
                 }
                 jvisits.put(o);
             }
@@ -205,6 +205,7 @@ public class JsonExporter {
                 a.mute = j.optInt("mute", 0) == 1;
                 a.deaf = j.optInt("deaf", 0) == 1;
                 a.sign = j.optInt("sign", 0) == 1;
+                a.myLocalDir = j.optInt("myLocalDir", 0) == 1;
                 a.gender = j.optString("gender", "m");
                 a.age = j.optString("age", "ADULT");
                 a.status = j.optString("status", "");
@@ -242,6 +243,7 @@ public class JsonExporter {
 
             }
         } catch (Exception e) {
+            System.err.println("Restore error : " + e.getMessage());
             e.printStackTrace();
         }
     }

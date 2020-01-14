@@ -9,13 +9,13 @@ android {
             storePassword 'Jul1sback'
         }
     }
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "org.ptbvl.apt"
         minSdkVersion 19
-        targetSdkVersion 26
-        versionCode 55
-        versionName "0.5.1"
+        targetSdkVersion 28
+        versionCode 61
+        versionName "0.5.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
