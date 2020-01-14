@@ -6,8 +6,6 @@ import com.activeandroid.annotation.Table;
 
 import java.util.Date;
 
-import fr.areastudio.jwterritorio.common.UUIDGenerator;
-
 /**
  * Created by julien on 17.06.15.
  */

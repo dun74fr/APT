@@ -171,5 +171,7 @@
     <string name="generate_s13">Gerar s13</string>
     <string name="action_dupp_add">Endereço duplicado</string>
     <string name="send_gps_btn">Usar esta posição</string>
+    <string name="retry">Repetir</string>
+    <string name="share">Compartilhar</string>
 
 </resources>

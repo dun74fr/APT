@@ -36,6 +36,7 @@
                 tools:text="@string/name" />
 
             <TextView
+                android:textIsSelectable="true"
                 android:id="@+id/address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,6 +44,7 @@
                 tools:text="@string/address" />
 
             <TextView
+                android:textIsSelectable="true"
                 android:id="@+id/home_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -157,12 +159,14 @@
                 android:orientation="horizontal">
 
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/phone" />
 
                 <TextView
                     android:id="@+id/phone"
+                    android:textIsSelectable="true"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -181,9 +185,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:maxLines="3"
+                android:textIsSelectable="true"
                 tools:text="@string/notes" />
 
             <TextView
+
                 style="@style/AppTheme.TextSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -195,6 +202,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:maxLines="3"
+                android:textIsSelectable="true"
                 tools:text="@string/family_description" />
         </LinearLayout>
     </ScrollView>

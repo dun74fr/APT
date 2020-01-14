@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
-import com.thoughtbot.expandablerecyclerview.models.ExpandableList;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 
@@ -33,7 +32,6 @@ import fr.areastudio.jwterritorio.R;
 import fr.areastudio.jwterritorio.model.Address;
 import fr.areastudio.jwterritorio.model.DbUpdate;
 import fr.areastudio.jwterritorio.model.Territory;
-import fr.areastudio.jwterritorio.model.Visit;
 
 import static android.view.animation.Animation.RELATIVE_TO_SELF;
 
@@ -132,8 +130,8 @@ public class AssignAddressAdapter extends ExpandableRecyclerViewAdapter<AssignAd
             holder.lastContact.setText("");
             holder.lastContactImg.setVisibility(View.GONE);
         }
-        if (address.territory != null && address.territory.assignedPub != null) {
-            holder.assigned.setText(address.territory.assignedPub.name);
+        if (address.assignedPub != null) {
+            holder.assigned.setText(address.assignedPub.name);
         }
         else {
             holder.assigned.setText("");

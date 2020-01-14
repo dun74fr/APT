@@ -1,13 +1,9 @@
 package fr.areastudio.jwterritorio;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.activeandroid.ActiveAndroid;
-import com.activeandroid.Model;
 import com.activeandroid.query.Select;
 
-import fr.areastudio.jwterritorio.activities.LoginActivity;
 import fr.areastudio.jwterritorio.activities.MainActivity;
 import fr.areastudio.jwterritorio.model.Publisher;
 

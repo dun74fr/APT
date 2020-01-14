@@ -10,8 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +19,6 @@ import java.util.List;
 
 import fr.areastudio.jwterritorio.R;
 import fr.areastudio.jwterritorio.model.Address;
-import fr.areastudio.jwterritorio.model.Visit;
 
 public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.ViewHolder>{
 
@@ -120,8 +117,8 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.View
             holder.lastContact.setText(dateFormatter.format(address.lastVisit));
             holder.lastContactImg.setVisibility(View.VISIBLE);
         }
-        if (address.territory != null && address.territory.assignedPub != null) {
-            holder.assigned.setText(address.territory.assignedPub.name);
+        if (address.assignedPub != null) {
+            holder.assigned.setText(address.assignedPub.name);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

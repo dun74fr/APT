@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +16,9 @@ import android.widget.RelativeLayout;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 import fr.areastudio.jwterritorio.R;
-import fr.areastudio.jwterritorio.common.TouchImageView;
 
 
 public class FullScreenImageAdapter extends PagerAdapter {

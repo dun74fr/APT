@@ -1,14 +1,12 @@
 package fr.areastudio.jwterritorio.activities;
 
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,9 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -166,6 +162,9 @@ public class ViewAddressActivity extends AppCompatActivity {
         if (address.assignedPub != null){
             publisher.setText(address.assignedPub.name);
         }
+        if (!address.myLocalDir){
+            contactType.setEnabled(false);
+        }
         contactType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -267,6 +266,7 @@ public class ViewAddressActivity extends AppCompatActivity {
             if (address != null && address.myLocalDir) {
                 menu.findItem(R.id.action_add_to_my_dir).setTitle(R.string.remove_from_my_dir);
             }
+
             return true;
         }
 
@@ -336,6 +336,14 @@ public class ViewAddressActivity extends AppCompatActivity {
                 this.startActivity(newintent);
                 return true;
 
+            }
+            else if (id == R.id.share_address){
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "http://apt.org/share/" + address.uuid);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+                return true;
             }
             return super.onOptionsItemSelected(item);
         }

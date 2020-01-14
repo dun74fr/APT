@@ -1,11 +1,11 @@
 package fr.areastudio.jwterritorio.activities;
 
 import android.Manifest;
-import android.app.Dialog;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -21,20 +21,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.activeandroid.query.Select;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -239,12 +232,23 @@ public class MyAddressesActivity extends AppCompatActivity
                         mSwipeRefresh.setRefreshing(false);
 
                         if (success) {
-                            if (new Select().from(Territory.class).where("publisher = ?", me.getId()).execute().size() > 0) {
+                            //if (new Select().from(Territory.class).where("publisher = ?", me.getId()).execute().size() > 0) {
                                 refresh();
-                            }
+                            //}
                         }
                         else {
-                            Toast.makeText(MyAddressesActivity.this,R.string.update_error,Toast.LENGTH_LONG).show();
+                            new AlertDialog.Builder(MyAddressesActivity.this).setMessage(R.string.update_error).setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    refresh(true);
+                                }
+                            }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            }).create().show();
+                            //Toast.makeText(MyAddressesActivity.this,R.string.update_error,Toast.LENGTH_LONG).show();
                         }
                     }
                 }.execute();
