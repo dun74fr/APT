@@ -1,14 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'areastudio'
-            keyPassword 'Jul2sback'
-            storeFile file('/Users/Julien/Dropbox/android-dev/keystore')
-            storePassword 'Jul1sback'
-        }
-    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "org.ptbvl.apt"
