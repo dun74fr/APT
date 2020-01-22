@@ -256,8 +256,10 @@ public class NewAddressActivity extends AppCompatActivity {
                 a.status = "DRAFT";
             }
 
-
-            a.type = type;
+            if (!type.equals(a.type)) {
+                a.type = type;
+                a.assignedPub = ((MyApplication) getApplication()).getMe();
+            }
             a.lat = lat.getText().toString();
             a.lng = lng.getText().toString();
 
@@ -269,6 +271,8 @@ public class NewAddressActivity extends AppCompatActivity {
             if (a.getId() == null) {
                 a.assignedPub = me;
             }
+
+
             a.save();
             update.uuid = a.uuid;
             update.save();
