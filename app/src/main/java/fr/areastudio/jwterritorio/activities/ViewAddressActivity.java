@@ -171,6 +171,7 @@ public class ViewAddressActivity extends AppCompatActivity {
                 String type = getResources().getStringArray(R.array.contact_type_values)[contactType.getSelectedItemPosition()];
                 if (!type.equals(address.type)) {
                     address.type = type;
+                    address.assignedPub = ((MyApplication) getApplication()).getMe();
                     address.save();
                     DbUpdate update = new DbUpdate();
                     update.publisherUuid = ((MyApplication) getApplication()).getMe().uuid;

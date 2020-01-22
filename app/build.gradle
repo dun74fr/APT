@@ -1,21 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'areastudio'
-            keyPassword 'Jul2sback'
-            storeFile file('/Users/Julien/Dropbox/android-dev/keystore')
-            storePassword 'Jul1sback'
-        }
-    }
+    apply from: 'signing.gradle'
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "org.ptbvl.apt"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 61
-        versionName "0.5.7"
+        versionCode 63
+        versionName "0.5.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }

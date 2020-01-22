@@ -111,8 +111,8 @@ public class MyGroupAddressAdapter extends ExpandableRecyclerViewAdapter<MyGroup
             holder.lastContact.setText("");
             holder.lastContactImg.setVisibility(View.GONE);
         }
-        if (address.territory != null && address.territory.assignedPub != null) {
-            holder.assigned.setText(address.territory.assignedPub.name);
+        if (address.assignedPub != null) {
+            holder.assigned.setText(address.assignedPub.name);
         } else {
             holder.assigned.setText("");
         }
