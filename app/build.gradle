@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     apply from: 'signing.gradle'
-
     compileSdkVersion 28
     defaultConfig {
         applicationId "org.ptbvl.apt"
