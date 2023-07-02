@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.content.ContextCompat;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,8 +111,8 @@ public class MyGroupAddressAdapter extends ExpandableRecyclerViewAdapter<MyGroup
             holder.lastContact.setText("");
             holder.lastContactImg.setVisibility(View.GONE);
         }
-        if (address.territory != null && address.territory.assignedPub != null) {
-            holder.assigned.setText(address.territory.assignedPub.name);
+        if (address.assignedPub != null) {
+            holder.assigned.setText(address.assignedPub.name);
         } else {
             holder.assigned.setText("");
         }

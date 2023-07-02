@@ -3,9 +3,9 @@ package fr.areastudio.jwterritorio.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -256,8 +256,10 @@ public class NewAddressActivity extends AppCompatActivity {
                 a.status = "DRAFT";
             }
 
-
-            a.type = type;
+            if (!type.equals(a.type)) {
+                a.type = type;
+                a.assignedPub = ((MyApplication) getApplication()).getMe();
+            }
             a.lat = lat.getText().toString();
             a.lng = lng.getText().toString();
 
@@ -269,6 +271,8 @@ public class NewAddressActivity extends AppCompatActivity {
             if (a.getId() == null) {
                 a.assignedPub = me;
             }
+
+
             a.save();
             update.uuid = a.uuid;
             update.save();

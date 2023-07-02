@@ -35,12 +35,12 @@
 
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_weight="1"
         android:id="@+id/news"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
-    <android.support.design.widget.BottomNavigationView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
